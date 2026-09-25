@@ -63,11 +63,11 @@ export const phase1Product = {
 
   illustrations: {
     utilizationGoodput: {
-      src: "/images/3-utilization-vs-goodput-dark.png",
+      src: "/images/3-utilization-vs-goodput-dark.svg",
       alt: "Comparison of GPU utilization versus Joule goodput over sixty seconds, showing busy time is not the same as SLO-meeting token output.",
     },
     vpcBoundary: {
-      src: "/images/4-in-vpc-data-boundary-dark.png",
+      src: "/images/4-in-vpc-data-boundary-dark.svg",
       alt: "Architecture diagram of joule-agent and joule-core deployed inside the customer VPC with no egress to Joule vendor systems.",
     },
   },
