@@ -158,7 +158,7 @@ export default function ProductHome() {
             const Icon = signalIcons[icon];
             return (
               <div className="hero-signal" key={label}>
-                <Icon size={22} strokeWidth={1.75} aria-hidden />
+                <Icon size={16} strokeWidth={1.75} aria-hidden />
                 <span className="hero-signal-label">{label}</span>
               </div>
             );

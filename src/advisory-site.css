@@ -200,9 +200,10 @@ h1 em {
   }
 }
 .hero-signal {
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  gap: 14px;
+  flex-direction: row;
+  gap: 8px;
 }
 .hero-signal svg {
   color: #61b8a9;
@@ -211,11 +212,11 @@ h1 em {
 .hero-signal-label {
   color: #e7e8e4;
   font-family: Manrope, system-ui, sans-serif;
-  font-size: clamp(15px, 1.6vw, 18px);
+  font-size: clamp(11px, 1.15vw, 13px);
   font-weight: 500;
   letter-spacing: -0.02em;
-  line-height: 1.35;
-  max-width: 16rem;
+  line-height: 1.3;
+  min-width: 0;
 }
 .product-figure {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
