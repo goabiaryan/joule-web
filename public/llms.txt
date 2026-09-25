@@ -1,0 +1,22 @@
+# Joule
+
+> Joule is an inference power economics engine that ties physical GPU energy to token throughput and SLO goodput.
+
+Founded by Abi Aryan. Site: https://joule.lat/
+
+## Product
+
+- Phase-aware inference power economics
+- Prefill vs decode attribution
+- $/M tokens, tokens/W, TTFT, TPOT beside SLOs
+- joule-agent and joule-core run in the customer perimeter
+
+## Pages
+
+- [Home](https://joule.lat/)
+- [Design partner program](https://joule.lat/scoping)
+- [Ongoing telemetry](https://joule.lat/retainer)
+
+## Founder
+
+- [Abi Aryan](https://abiaryan.com/)

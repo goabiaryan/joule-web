@@ -1,20 +1,51 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-20G80ZMSPG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-20G80ZMSPG');
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b0e12" />
-    <title>Joule.lat | Phase-Aware Inference Power Economics</title>
+    <title>Joule · Inference Power Economics Engine</title>
     <meta
       name="description"
-      content="Joule pairs runtime telemetry with semantic inference classification to expose phase-level $/M tokens, tokens per watt, and SLO-safe policy simulation for TensorRT-LLM, TorchDynamo, vLLM/SGLang, and custom production runtimes."
+      content="Joule is an inference power economics engine that ties physical GPU energy to token throughput and SLO goodput."
     />
-    <meta property="og:title" content="Joule.lat | Inference Power Economics" />
+    <link rel="canonical" href="https://joule.lat/" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <meta property="og:title" content="Joule · Inference Power Economics Engine" />
     <meta
       property="og:description"
-      content="Phase-aware inference power economics for GPU clusters. Design partner program with joule-agent and joule-core in your perimeter."
+      content="Joule is an inference power economics engine that ties physical GPU energy to token throughput and SLO goodput."
     />
+    <meta property="og:url" content="https://joule.lat/" />
+    <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Joule",
+        "url": "https://joule.lat/",
+        "description": "Joule is an inference power economics engine that ties physical GPU energy to token throughput and SLO goodput.",
+        "founder": {
+          "@type": "Person",
+          "name": "Abi Aryan",
+          "url": "https://abiaryan.com/",
+          "sameAs": [
+            "https://www.linkedin.com/in/goabiaryan/",
+            "https://github.com/goabiaryan"
+          ]
+        }
+      }
+    </script>
   </head>
   <body>
     <!-- Netlify build-time form detection (SPA); fields match IntakePage.jsx -->
