@@ -45,13 +45,13 @@ export const RETAINER_CTA = {
 };
 
 export const phase1Product = {
-  brand: "Joule.Latency",
+  brand: "Joule.lat",
   hero: {
-    eyebrow: "Inference power intelligence",
+    eyebrow: "Inference power economics engine",
     titleLine1: "Phase-aware inference",
     titleEmphasis: "power economics.",
     lede:
-      "Facility meters report total GPU draw at the rack. Joule ties that draw to each LLM request and to cost per million tokens.",
+      "An in-perimeter runtime telemetry engine that ties physical GPU energy to token throughput and SLO goodput. Datacenters measure rack megawatts; Joule attributes the exact power and dollars consumed by every inference request.",
     keywords: ["$/M tokens", "tokens/W", "TTFT", "TPOT"],
     signals: [
       { icon: "zap", label: "$/M tokens beside SLOs" },
@@ -94,7 +94,8 @@ export const phase1Product = {
     joule: {
       stateLabel: "State: Joule Runtime Telemetry",
       columnTitle: "Phase-Aware Economics",
-      columnHint: "Token economics · Prefill vs. decode attribution on the serving path",
+      columnHint:
+        "Hooks directly into the serving runtime, separating prefill from decode, to map real physical power draw against TTFT, TPOT, and productive goodput rather than raw device utilization alone.",
       insights: [
         {
           title: "Prefill vs. decode separation",
@@ -137,7 +138,7 @@ export const phase1Product = {
         scopeTag: "Unit Economics",
         title: "Hyperscale Capex Directors",
         body:
-          "Platform leaders managing multi-million-dollar compute budgets wanting to maximize goodput per watt.",
+          "Turns raw datacenter megawatts into cost per million tokens ($/Mtok), uncovering how much of your 80%+ GPU utilization is productive compute versus decode-heavy waste.",
         footer: "$/M tokens · Tokens/W · P99 SLO Defense",
       },
     ],
@@ -252,8 +253,8 @@ export const phase1Product = {
     "We share scope and deliverables before we start. Questions?",
 
   footer: {
-    line: "Joule.Latency",
+    line: "Joule.lat",
     legal: `© ${new Date().getFullYear()} Bruma Celeste Unipessoal Lda.`,
-    tagline: "Inference Power Intelligence",
+    tagline: "Inference Power Economics",
   },
 };
