@@ -61,7 +61,6 @@ export const phase1Product = {
     ],
   },
 
-  /** Public site only — stack + span diagrams live in `/deck/` (pitch / NDA). */
   illustrations: {
     utilizationGoodput: {
       src: "/images/3-utilization-vs-goodput-dark.png",
