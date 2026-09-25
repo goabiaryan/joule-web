@@ -61,6 +61,18 @@ export const phase1Product = {
     ],
   },
 
+  /** Public site only — stack + span diagrams live in `/deck/` (pitch / NDA). */
+  illustrations: {
+    utilizationGoodput: {
+      src: "/images/3-utilization-vs-goodput-dark.png",
+      alt: "Comparison of GPU utilization versus Joule goodput over sixty seconds, showing busy time is not the same as SLO-meeting token output.",
+    },
+    vpcBoundary: {
+      src: "/images/4-in-vpc-data-boundary-dark.png",
+      alt: "Architecture diagram of joule-agent and joule-core deployed inside the customer VPC with no egress to Joule vendor systems.",
+    },
+  },
+
   problem: {
     title: "The Measurement Gap",
     facility: {

@@ -217,6 +217,23 @@ h1 em {
   line-height: 1.35;
   max-width: 16rem;
 }
+.product-figure {
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+.product-figure img {
+  display: block;
+  height: auto;
+  width: 100%;
+}
+.product-figure-stack {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.25rem, 3vw, 1.75rem);
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+}
+.product-figure-stack .product-figure {
+  margin-top: 0;
+}
 .hero + .section {
   border-top: none;
 }

@@ -93,6 +93,14 @@ function DeliverableSpecGrid({ items }) {
   );
 }
 
+function ProductFigure({ alt, src }) {
+  return (
+    <figure className="product-figure">
+      <img alt={alt} decoding="async" loading="lazy" src={src} />
+    </figure>
+  );
+}
+
 function SectionHeadingTitle({ text, as: Tag = "h2", size = "lg", tone = "light" }) {
   const sizeClass = size === "sm" ? " section-heading-title-sm" : "";
   const toneClass = tone === "amber" ? " section-heading-title-amber" : " section-heading-title-light";
@@ -106,6 +114,7 @@ function SectionHeadingTitle({ text, as: Tag = "h2", size = "lg", tone = "light"
 export default function ProductHome() {
   const {
     hero,
+    illustrations,
     problem,
     audience,
     stack,
@@ -218,6 +227,7 @@ export default function ProductHome() {
             </div>
           </div>
         </div>
+        <ProductFigure alt={illustrations.utilizationGoodput.alt} src={illustrations.utilizationGoodput.src} />
       </section>
 
       <section className="section audience-matrix-section" id="audience">
@@ -279,6 +289,7 @@ export default function ProductHome() {
             ))}
           </ol>
         </div>
+        <ProductFigure alt={illustrations.vpcBoundary.alt} src={illustrations.vpcBoundary.src} />
       </section>
 
       <section className="section outputs-section" id="deliverables">
