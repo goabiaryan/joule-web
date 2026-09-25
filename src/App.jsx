@@ -1,10 +1,12 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import ProductHome from "./pages/ProductHome.jsx";
 import IntakePage from "./pages/IntakePage.jsx";
+import RouteAnalytics from "./RouteAnalytics.jsx";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <RouteAnalytics />
       <Routes>
         <Route path="/" element={<ProductHome />} />
         <Route path="/demo" element={<Navigate to="/scoping" replace />} />
