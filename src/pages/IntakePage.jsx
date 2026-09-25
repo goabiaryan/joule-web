@@ -89,7 +89,15 @@ export default function IntakePage({ variant }) {
             </Link>
           </div>
         ) : (
-          <form className="intake-form" onSubmit={onSubmit} noValidate>
+          <form
+            className="intake-form"
+            name={config.formName}
+            method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            onSubmit={onSubmit}
+            noValidate
+          >
             <input type="hidden" name="form-name" value={config.formName} />
             <p className="intake-honeypot" hidden>
               <label>
