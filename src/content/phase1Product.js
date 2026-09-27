@@ -180,8 +180,8 @@ export const phase1Product = {
         id: "DEPLOY",
         title: "Measure in your perimeter",
         items: [
-          "Licensed joule-agent and joule-core run on agreed isolated hosts in your VPC. Operated by Joule under your security rules.",
-          "Telemetry stays in your tenant. No default export to Joule systems.",
+          "Licensed Joule runtime on agreed isolated hosts in your VPC. Operated by Joule under your security rules.",
+          "Metrics and readouts stay in your tenant. No default egress to Joule systems.",
           "We align on scope and data handling before anything goes live.",
         ],
       },
@@ -216,7 +216,7 @@ export const phase1Product = {
     feeTail: " USD flat · 8-week technical deployment",
     feeFootnote: "Excl. VAT · USD or EUR invoice",
     items: [
-      "In-perimeter deployment of licensed joule-agent and joule-core on isolated nodes",
+      "In-VPC deployment of the licensed Joule runtime on agreed isolated hosts",
       "Baseline prefill vs. decode split correlated with physical PDU power draw",
       "Recoverable spend mapping ($/M tokens, tokens/W, and goodput under P99 SLOs)",
       "SLO-safe policy simulation matrix and executive findings roadmap",
