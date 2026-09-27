@@ -1,5 +1,4 @@
 import { Activity, ArrowDown, ArrowUpRight, Radar, ShieldCheck, Zap } from "lucide-react";
-import AboutJoule from "../components/AboutJoule.jsx";
 import BrandLockup from "../components/BrandLockup.jsx";
 import BrandTagline from "../components/BrandTagline.jsx";
 import EngagementCard from "../components/EngagementCard.jsx";
@@ -144,7 +143,13 @@ export default function ProductHome() {
         <a className="brand" href="#top" aria-label={`${brandMeta.name} home`}>
           <span className="brand-mark">J</span>
           <span className="brand-stack">
-            <BrandLockup />
+            <BrandLockup
+              layout="inline"
+              nameVariant="logotype"
+              nameClassName="brand-name brand-name-logotype"
+              domainClassName="brand-domain brand-domain-nav"
+              parenClassName="brand-domain-paren brand-domain-paren-nav"
+            />
             <BrandTagline className="brand-tagline-nav" />
           </span>
         </a>
@@ -160,6 +165,9 @@ export default function ProductHome() {
       </nav>
 
       <section className="hero" id="top">
+        <div className="hero-underlay" aria-hidden="true">
+          <img alt="" className="hero-underlay-img" decoding="async" src={hero.visual.src} />
+        </div>
         <div className="hero-signals" aria-label="Product capabilities">
           {hero.signals.map(({ icon, label }) => {
             const Icon = signalIcons[icon];
@@ -175,12 +183,16 @@ export default function ProductHome() {
           <span className="pulse-dot" /> {hero.eyebrow}
         </div>
         <h1>
-          {hero.titleLine1}
-          <br />
-          <em>{hero.titleEmphasis}</em>
+          {hero.titleLine1} <em>{hero.titleEmphasis}</em>
         </h1>
-        <p className="hero-brand-lockup" aria-label={`${brandMeta.name}, ${brandMeta.domain}`}>
-          <BrandLockup nameClassName="hero-brand-name" domainClassName="hero-brand-domain" />
+        <p className="hero-brand-lockup" aria-label={`${brandMeta.name} (${brandMeta.domain})`}>
+          <BrandLockup
+            layout="inline"
+            nameVariant="logotype"
+            nameClassName="brand-name-logotype hero-brand-logotype"
+            domainClassName="hero-brand-domain"
+            parenClassName="hero-brand-paren"
+          />
         </p>
         <p className="hero-lede">{hero.lede}</p>
         <p className="hero-keywords" aria-label="What we measure">
@@ -336,8 +348,6 @@ export default function ProductHome() {
           </EngagementCard>
         </div>
       </section>
-
-      <AboutJoule />
 
       <footer className="site-footer site-footer-institutional site-footer-after-engagements">
         <p className="site-footer-principal">

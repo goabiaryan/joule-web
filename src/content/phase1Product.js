@@ -25,19 +25,6 @@ export const brandMeta = {
   contactEmail: "hello@joule.lat",
 };
 
-export const publicAbout = {
-  id: "about",
-  title: "About Joule",
-  lead: `${BRAND_NAME} (${BRAND_DOMAIN}) is an inference power economics engine. ${BRAND_TAGLINE} An in-perimeter runtime telemetry program ties physical GPU energy to token throughput and SLO goodput, not rack megawatts or misleading GPU utilization alone.`,
-  points: [
-    "joule-agent and joule-core run on agreed isolated hosts in your VPC; telemetry stays in your tenant with no default export to Joule.",
-    "Prefill vs decode attribution with $/M tokens, tokens/W, TTFT, and TPOT beside SLO goodput.",
-    "Phase 1 design partner program: evaluation, dashboards, and what-if readouts—no automatic changes to production controls.",
-  ],
-  audience:
-    "Built for production inference leads, neocloud and GPU colo operators, and capex leaders optimizing unit economics under latency SLOs.",
-};
-
 export const INTAKE_FORMS = {
   designPartner: {
     path: "/scoping",
@@ -89,7 +76,7 @@ export const phase1Product = {
     titleLine1: "Phase-aware inference",
     titleEmphasis: "power economics.",
     lede:
-      "An in-perimeter runtime telemetry engine that ties physical GPU energy to token throughput and SLO goodput. Datacenters measure rack megawatts; Joule attributes the exact power and dollars consumed by every inference request.",
+      "Facility meters report total GPU draw at the rack. Joule ties that draw to each LLM request and to cost per million tokens.",
     keywords: ["$/M tokens", "tokens/W", "TTFT", "TPOT"],
     signals: [
       { icon: "zap", label: "$/M tokens beside SLOs" },
@@ -97,6 +84,10 @@ export const phase1Product = {
       { icon: "shield", label: "What-if within SLO limits" },
       { icon: "activity", label: "Energy and latency trade-offs" },
     ],
+    visual: {
+      src: "/images/hero-signal-panel.svg",
+      alt: "Illustrative panel: prefill and decode latency traces, GPU power line, and goodput metrics.",
+    },
   },
 
   illustrations: {

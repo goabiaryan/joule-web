@@ -87,8 +87,36 @@ a {
   gap: 1px;
   line-height: 1.15;
 }
+.brand-lockup-inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.brand-domain-paren {
+  color: #747a84;
+  font-family: "DM Mono", monospace;
+  font-weight: 400;
+}
 .brand-name {
+  font-family: "Manrope", sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.brand-name-logotype {
+  font-family: "DM Mono", monospace;
+  font-size: 12px;
+  font-weight: 500;
   letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.brand-domain-nav,
+.brand-domain-paren-nav {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+.brand .brand-lockup-inline {
+  align-items: baseline;
+  row-gap: 2px;
 }
 .brand-domain {
   color: #747a84;
@@ -154,6 +182,39 @@ a {
   margin: 0 7.5%;
   padding: clamp(1.75rem, 3vw, 2.5rem) 0 clamp(4.5rem, 8vw, 5rem);
   position: relative;
+  isolation: isolate;
+}
+.hero-underlay {
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+}
+.hero-underlay-img {
+  display: block;
+  height: auto;
+  max-width: none;
+  opacity: 0.75;
+  position: absolute;
+  right: -4%;
+  top: 50%;
+  transform: translateY(-46%);
+  user-select: none;
+  width: min(58vw, 520px);
+  -webkit-mask-image: linear-gradient(to left, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to left, #000 55%, transparent 100%);
+}
+.hero > :not(.hero-underlay) {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 900px) {
+  .hero-underlay-img {
+    opacity: 0.75;
+    right: -18%;
+    width: min(85vw, 440px);
+  }
 }
 .eyebrow,
 .card-label,
@@ -196,24 +257,29 @@ h1 em {
   color: #e36a3d;
   font-style: normal;
 }
-.hero .hero-brand-lockup {
+.hero-brand-lockup {
+  font-family: "DM Mono", monospace;
   margin: -6px 0 clamp(1.35rem, 2.8vw, 2rem);
   max-width: 850px;
 }
-.hero-brand-name {
+.hero-brand-logotype {
   color: #e8eaed;
+  font-size: clamp(14px, 1.55vw, 17px);
+  letter-spacing: 0.22em;
+}
+.hero-brand-paren,
+.hero-brand-domain {
   font-family: "DM Mono", monospace;
-  font-size: clamp(13px, 1.45vw, 17px);
-  font-weight: 500;
-  letter-spacing: 0.26em;
+  font-size: clamp(13px, 1.45vw, 16px);
+  font-weight: 400;
+}
+.hero-brand-paren {
+  color: #747a84;
+  letter-spacing: 0.04em;
 }
 .hero-brand-domain {
   color: #e36a3d;
-  font-family: "DM Mono", monospace;
-  font-size: clamp(14px, 1.55vw, 18px);
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  margin-top: 6px;
+  letter-spacing: 0.06em;
 }
 .hero-lede {
   color: #d4d8dc;
@@ -293,45 +359,6 @@ h1 em {
   letter-spacing: -0.02em;
   line-height: 1.3;
   min-width: 0;
-}
-.about-joule-section {
-  border-top: 1px solid #232a32;
-  margin: 0 7.5%;
-  max-width: 42rem;
-  padding: clamp(3rem, 6vw, 4rem) 0 clamp(2rem, 4vw, 3rem);
-}
-.about-joule-heading {
-  color: #969da6;
-  font-family: "DM Mono", monospace;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  margin: 0 0 1rem;
-  text-transform: uppercase;
-}
-.about-joule-lead {
-  color: #c8cdd3;
-  font-size: 15px;
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  line-height: 1.65;
-  margin: 0 0 1.25rem;
-}
-.about-joule-list {
-  color: #9198a2;
-  font-size: 14px;
-  line-height: 1.65;
-  margin: 0 0 1.25rem;
-  padding-left: 1.15rem;
-}
-.about-joule-list li + li {
-  margin-top: 0.5rem;
-}
-.about-joule-audience {
-  color: #747a84;
-  font-size: 13px;
-  line-height: 1.6;
-  margin: 0;
 }
 .product-figure {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
@@ -589,7 +616,11 @@ p {
   margin-top: 0.35rem;
 }
 .site-footer-tagline {
+  color: #e36a3d;
+  font-size: 11px;
+  letter-spacing: 0.02em;
   margin-top: 0.35rem;
+  text-transform: none;
 }
 .site-footer-secondary a {
   color: #68717d;
@@ -1065,6 +1096,13 @@ ul {
   margin: 0;
   max-width: 920px;
   text-transform: uppercase;
+}
+.site-footer-line.site-footer-tagline {
+  color: #e36a3d;
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-transform: none;
 }
 .site-footer a {
   color: #61b8a9;
