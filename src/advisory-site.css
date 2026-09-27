@@ -73,6 +73,56 @@ a {
 .brand-muted {
   color: #747a84;
 }
+.brand-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  letter-spacing: normal;
+  line-height: 1.2;
+}
+.brand-lockup {
+  align-items: baseline;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  line-height: 1.15;
+}
+.brand-name {
+  letter-spacing: 0.22em;
+}
+.brand-domain {
+  color: #747a84;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: lowercase;
+}
+.site-footer-domain {
+  color: #747a84;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+}
+.brand-tagline-line {
+  color: #e36a3d;
+  font-family: "Manrope", sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.3;
+  text-transform: none;
+}
+.brand-tagline-nav {
+  display: none;
+  font-size: 10px;
+}
+@media (min-width: 900px) {
+  .brand-tagline-nav {
+    display: block;
+  }
+}
 .nav-links {
   align-items: center;
   display: flex;
@@ -119,6 +169,13 @@ a {
   display: flex;
   gap: 9px;
 }
+.eyebrow-tagline {
+  font-family: "Manrope", sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
 .pulse-dot {
   background: #e36a3d;
   border-radius: 50%;
@@ -138,6 +195,25 @@ h1 {
 h1 em {
   color: #e36a3d;
   font-style: normal;
+}
+.hero .hero-brand-lockup {
+  margin: -6px 0 clamp(1.35rem, 2.8vw, 2rem);
+  max-width: 850px;
+}
+.hero-brand-name {
+  color: #e8eaed;
+  font-family: "DM Mono", monospace;
+  font-size: clamp(13px, 1.45vw, 17px);
+  font-weight: 500;
+  letter-spacing: 0.26em;
+}
+.hero-brand-domain {
+  color: #e36a3d;
+  font-family: "DM Mono", monospace;
+  font-size: clamp(14px, 1.55vw, 18px);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  margin-top: 6px;
 }
 .hero-lede {
   color: #d4d8dc;
@@ -217,6 +293,45 @@ h1 em {
   letter-spacing: -0.02em;
   line-height: 1.3;
   min-width: 0;
+}
+.about-joule-section {
+  border-top: 1px solid #232a32;
+  margin: 0 7.5%;
+  max-width: 42rem;
+  padding: clamp(3rem, 6vw, 4rem) 0 clamp(2rem, 4vw, 3rem);
+}
+.about-joule-heading {
+  color: #969da6;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  margin: 0 0 1rem;
+  text-transform: uppercase;
+}
+.about-joule-lead {
+  color: #c8cdd3;
+  font-size: 15px;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.65;
+  margin: 0 0 1.25rem;
+}
+.about-joule-list {
+  color: #9198a2;
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0 0 1.25rem;
+  padding-left: 1.15rem;
+}
+.about-joule-list li + li {
+  margin-top: 0.5rem;
+}
+.about-joule-audience {
+  color: #747a84;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
 }
 .product-figure {
   margin-top: clamp(2.5rem, 5vw, 3.5rem);
@@ -471,6 +586,9 @@ p {
   color: #c8d4e0;
 }
 .site-footer-secondary {
+  margin-top: 0.35rem;
+}
+.site-footer-tagline {
   margin-top: 0.35rem;
 }
 .site-footer-secondary a {
@@ -982,14 +1100,35 @@ ul {
   padding: 96px 24px 80px;
 }
 .intake-back {
+  align-items: baseline;
   color: #68717d;
-  display: inline-block;
+  display: inline-flex;
+  flex-wrap: wrap;
   font-size: 13px;
+  gap: 0.35rem;
   margin-bottom: 2rem;
   text-decoration: none;
 }
+.intake-back-domain {
+  color: #747a84;
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
 .intake-back:hover {
   color: #9198a2;
+}
+.intake-brand-tagline {
+  margin: 0 0 1.75rem;
+}
+.intake-footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #232a32;
+}
+.intake-footer-tagline {
+  margin: 0;
+  font-size: 11px;
 }
 .intake-panel {
   text-align: left;

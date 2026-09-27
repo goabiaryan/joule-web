@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { INTAKE_FORMS } from "../content/phase1Product.js";
+import BrandTagline from "../components/BrandTagline.jsx";
+import { useBrandMeta } from "../hooks/useBrandMeta.js";
+import { brandMeta, INTAKE_FORMS } from "../content/phase1Product.js";
 
 function encodeFormBody(formName, data) {
   const params = new URLSearchParams();
@@ -30,6 +32,10 @@ export default function IntakePage({ variant }) {
     [],
   );
   const [fields, setFields] = useState(initial);
+
+  useBrandMeta({
+    pageTitle: config ? `${config.eyebrow} · ${brandMeta.documentTitle}` : undefined,
+  });
 
   if (!config) {
     return null;
@@ -74,8 +80,10 @@ export default function IntakePage({ variant }) {
     <main className="site-shell intake-page">
       <div className="ambient-glow" aria-hidden />
       <Link className="intake-back" to="/">
-        ← Joule.lat
+        ← {brandMeta.name}
+        <span className="intake-back-domain">{brandMeta.domain}</span>
       </Link>
+      <BrandTagline as="p" className="intake-brand-tagline" />
       <div className="intake-panel">
         <p className="intake-eyebrow">{config.eyebrow}</p>
         <h1>{config.title}</h1>
@@ -153,6 +161,9 @@ export default function IntakePage({ variant }) {
           </form>
         )}
       </div>
+      <footer className="intake-footer">
+        <BrandTagline as="p" className="intake-footer-tagline" />
+      </footer>
     </main>
   );
 }

@@ -1,6 +1,10 @@
 import { Activity, ArrowDown, ArrowUpRight, Radar, ShieldCheck, Zap } from "lucide-react";
+import AboutJoule from "../components/AboutJoule.jsx";
+import BrandLockup from "../components/BrandLockup.jsx";
+import BrandTagline from "../components/BrandTagline.jsx";
 import EngagementCard from "../components/EngagementCard.jsx";
-import { phase1Product, RETAINER_CTA, SCOPING_CTA } from "../content/phase1Product.js";
+import { useBrandMeta } from "../hooks/useBrandMeta.js";
+import { brandMeta, phase1Product, RETAINER_CTA, SCOPING_CTA } from "../content/phase1Product.js";
 
 const signalIcons = {
   zap: Zap,
@@ -131,14 +135,17 @@ export default function ProductHome() {
   const mail = SCOPING_CTA.contactEmail;
   const conversationHref = SCOPING_CTA.href;
 
+  useBrandMeta();
+
   return (
     <main className="site-shell">
       <div className="ambient-glow" aria-hidden />
       <nav className="topbar" aria-label="Primary navigation">
-        <a className="brand" href="#top" aria-label="Joule home">
+        <a className="brand" href="#top" aria-label={`${brandMeta.name} home`}>
           <span className="brand-mark">J</span>
-          <span>
-            JOULE<span className="brand-muted">.LAT</span>
+          <span className="brand-stack">
+            <BrandLockup />
+            <BrandTagline className="brand-tagline-nav" />
           </span>
         </a>
         <div className="nav-links">
@@ -164,7 +171,7 @@ export default function ProductHome() {
             );
           })}
         </div>
-        <div className="eyebrow">
+        <div className="eyebrow eyebrow-tagline">
           <span className="pulse-dot" /> {hero.eyebrow}
         </div>
         <h1>
@@ -172,6 +179,9 @@ export default function ProductHome() {
           <br />
           <em>{hero.titleEmphasis}</em>
         </h1>
+        <p className="hero-brand-lockup" aria-label={`${brandMeta.name}, ${brandMeta.domain}`}>
+          <BrandLockup nameClassName="hero-brand-name" domainClassName="hero-brand-domain" />
+        </p>
         <p className="hero-lede">{hero.lede}</p>
         <p className="hero-keywords" aria-label="What we measure">
           {hero.keywords.map((term, index) => (
@@ -327,6 +337,8 @@ export default function ProductHome() {
         </div>
       </section>
 
+      <AboutJoule />
+
       <footer className="site-footer site-footer-institutional site-footer-after-engagements">
         <p className="site-footer-principal">
           {principal.line}{" "}
@@ -334,8 +346,8 @@ export default function ProductHome() {
             {principal.linkLabel} →
           </a>
         </p>
-        <p className="site-footer-line">{footer.line}</p>
-        <p className="site-footer-line site-footer-secondary">{footer.tagline}</p>
+        <p className="site-footer-line site-footer-domain">{footer.line}</p>
+        <BrandTagline as="p" className="site-footer-line site-footer-tagline" />
         <small className="site-footer-legal">{footer.legal}</small>
       </footer>
     </main>

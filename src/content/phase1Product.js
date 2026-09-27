@@ -1,5 +1,43 @@
 /** Canonical copy for joule.lat: Phase 1 product and design partner motion. */
 
+/** Single source for Nike-style tagline; keep index.html meta in sync when this changes. */
+export const BRAND_NAME = "Joule";
+export const BRAND_DOMAIN = "joule.lat";
+export const BRAND_TAGLINE = "Efficiency down to the metal.";
+
+const PRODUCT_DESCRIPTOR =
+  "Phase-aware inference power economics engine tying GPU energy to token throughput and SLO goodput in your VPC.";
+
+const PROGRAM_DESCRIPTOR =
+  "Phase 1 design partner program: in-VPC evaluation and readouts—no automatic changes to production controls.";
+
+/** Crawlers, meta tags, and llms.txt should match this narrative. */
+export const brandMeta = {
+  name: BRAND_NAME,
+  domain: BRAND_DOMAIN,
+  siteUrl: `https://${BRAND_DOMAIN}/`,
+  tagline: BRAND_TAGLINE,
+  documentTitle: `${BRAND_NAME} · ${BRAND_TAGLINE}`,
+  metaDescription: `${BRAND_TAGLINE} ${BRAND_NAME} (${BRAND_DOMAIN}) is a phase-aware inference power economics engine tying GPU energy to token throughput and SLO goodput in your VPC. ${PROGRAM_DESCRIPTOR}`,
+  schemaDescription: `${BRAND_TAGLINE} ${PRODUCT_DESCRIPTOR} ${PROGRAM_DESCRIPTOR} Telemetry stays in your tenant by default.`,
+  shareImageAlt: `${BRAND_NAME} (${BRAND_DOMAIN}): ${BRAND_TAGLINE} In-VPC inference power economics and SLO goodput.`,
+  slogan: BRAND_TAGLINE,
+  contactEmail: "hello@joule.lat",
+};
+
+export const publicAbout = {
+  id: "about",
+  title: "About Joule",
+  lead: `${BRAND_NAME} (${BRAND_DOMAIN}) is an inference power economics engine. ${BRAND_TAGLINE} An in-perimeter runtime telemetry program ties physical GPU energy to token throughput and SLO goodput, not rack megawatts or misleading GPU utilization alone.`,
+  points: [
+    "joule-agent and joule-core run on agreed isolated hosts in your VPC; telemetry stays in your tenant with no default export to Joule.",
+    "Prefill vs decode attribution with $/M tokens, tokens/W, TTFT, and TPOT beside SLO goodput.",
+    "Phase 1 design partner program: evaluation, dashboards, and what-if readouts—no automatic changes to production controls.",
+  ],
+  audience:
+    "Built for production inference leads, neocloud and GPU colo operators, and capex leaders optimizing unit economics under latency SLOs.",
+};
+
 export const INTAKE_FORMS = {
   designPartner: {
     path: "/scoping",
@@ -45,9 +83,9 @@ export const RETAINER_CTA = {
 };
 
 export const phase1Product = {
-  brand: "Joule.lat",
+  brand: BRAND_NAME,
   hero: {
-    eyebrow: "Inference power economics engine",
+    eyebrow: BRAND_TAGLINE,
     titleLine1: "Phase-aware inference",
     titleEmphasis: "power economics.",
     lede:
@@ -253,8 +291,8 @@ export const phase1Product = {
     "We share scope and deliverables before we start. Questions?",
 
   footer: {
-    line: "Joule.lat",
+    line: BRAND_DOMAIN,
     legal: `© ${new Date().getFullYear()} Bruma Celeste Unipessoal Lda.`,
-    tagline: "Inference Power Economics",
+    tagline: BRAND_TAGLINE,
   },
 };
