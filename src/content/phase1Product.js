@@ -97,7 +97,7 @@ export const phase1Product = {
     },
     vpcBoundary: {
       src: "/images/4-in-vpc-data-boundary-dark.svg",
-      alt: "Architecture diagram of joule-agent and joule-core deployed inside the customer VPC with no egress to Joule vendor systems.",
+      alt: "Diagram: licensed Joule runtime and customer readouts stay inside the VPC with no default egress to Joule.",
     },
   },
 

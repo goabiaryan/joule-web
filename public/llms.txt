@@ -14,7 +14,7 @@ Joule (joule.lat) helps production LLM serving teams and GPU hosts measure $/M t
 
 - Attributes power and cost to inference requests (prefill vs decode), not misleading GPU busy % alone.
 - Correlates wattage, $/M tokens, and latency SLOs (TTFT, TPOT, P99 goodput).
-- Runs joule-agent and joule-core on agreed isolated hosts in the customer perimeter; telemetry stays in tenant by default (no default export to Joule).
+- Licensed Joule runtime on agreed isolated hosts in the customer perimeter; telemetry stays in tenant by default (no default export to Joule).
 - Phase 1 design partner program: evaluation, dashboards, and what-if readouts; no automatic changes to production controls.
 
 ## Who it is for
