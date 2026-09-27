@@ -161,9 +161,6 @@ export default function IntakePage({ variant }) {
           </form>
         )}
       </div>
-      <footer className="intake-footer">
-        <BrandTagline as="p" className="intake-footer-tagline" />
-      </footer>
     </main>
   );
 }
