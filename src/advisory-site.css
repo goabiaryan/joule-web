@@ -243,7 +243,7 @@ a {
     grid-column: 1 / -1;
     grid-row: 2;
     margin-bottom: 0;
-    margin-top: clamp(1.75rem, 3vw, 2.25rem);
+    margin-top: clamp(1rem, 2vw, 1.35rem);
   }
 }
 @media (max-width: 900px) {
@@ -380,7 +380,7 @@ h1 em {
   gap: clamp(1rem, 2vw, 1.5rem) clamp(1.25rem, 3vw, 2rem);
   grid-template-columns: 1fr;
   margin-bottom: 0;
-  margin-top: clamp(1.75rem, 3vw, 2.25rem);
+  margin-top: clamp(1rem, 2vw, 1.35rem);
   max-width: 72rem;
   width: 100%;
 }
