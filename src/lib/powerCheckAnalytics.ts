@@ -1,15 +1,10 @@
 /**
- * Anonymous power-check funnel events via Netlify Forms (no cookies, no PII).
- * Export submissions from Netlify → aggregate by event, question_id, tier, q6, session_id.
+ * Power-check funnel bookkeeping in the browser (no cookies, no PII).
+ * Netlify notifications are reserved for completed lead forms only
+ * (headroom-check-email, power-slo-assessment) — nothing posts here.
  */
 
-import {
-  HONEYPOT_FIELD,
-  TRAP_FIELD,
-  recordNetlifyFormSubmit,
-  validateHumanSubmit,
-} from "./formBotGuard.js";
-
+/** Hidden form name kept for Netlify build registration only; we do not POST to it. */
 export const POWER_CHECK_ANALYTICS_FORM = "power-check-analytics";
 
 const SESSION_KEY = "joule.powerCheck.session.v1";
@@ -69,15 +64,6 @@ function bufferAnswerEvent(payload: PowerCheckAnalyticsPayload): void {
   writeAnswerBuffer(rows);
 }
 
-/** Netlify emails fire per submission — never POST per-question events. */
-const NETLIFY_POST_KINDS: ReadonlySet<PowerCheckAnalyticsKind> = new Set([
-  "completed",
-  "scoping_click",
-  "email_sent",
-  "scoping_landed",
-  "retake",
-]);
-
 export type PowerCheckAnalyticsKind =
   | "started"
   | "answer"
@@ -124,100 +110,15 @@ export type PowerCheckAnalyticsPayload = {
   answerTrail?: string;
 };
 
-function encodeAnalyticsBody(payload: PowerCheckAnalyticsPayload): string {
-  const params = new URLSearchParams();
-  params.set("form-name", POWER_CHECK_ANALYTICS_FORM);
-  params.set("kind", payload.kind);
-  params.set("session_id", getPowerCheckSessionId());
-  const optional: (keyof PowerCheckAnalyticsPayload)[] = [
-    "questionId",
-    "answerValue",
-    "stepIndex",
-    "tier",
-    "score",
-    "q6",
-    "gapCount",
-    "role",
-    "answerTrail",
-  ];
-  for (const key of optional) {
-    const value = payload[key];
-    if (value !== undefined && value !== "") {
-      const fieldName =
-        key === "questionId"
-          ? "question_id"
-          : key === "answerValue"
-            ? "answer_value"
-            : key === "stepIndex"
-              ? "step_index"
-              : key === "gapCount"
-                ? "gap_count"
-                : key === "answerTrail"
-                  ? "answer_trail"
-                  : key;
-      params.set(fieldName, String(value));
-    }
-  }
-  params.set("bot-field", "");
-  return params.toString();
-}
-
-function postPowerCheckAnalytics(payload: PowerCheckAnalyticsPayload): void {
-  const guard = validateHumanSubmit(
-    POWER_CHECK_ANALYTICS_FORM,
-    { [HONEYPOT_FIELD]: "", [TRAP_FIELD]: "" },
-    { minMs: 0 },
-  );
-  if (!guard.ok) return;
-
-  const body = encodeAnalyticsBody(payload);
-  const posted =
-    navigator.sendBeacon &&
-    navigator.sendBeacon(
-      "/",
-      new Blob([body], { type: "application/x-www-form-urlencoded" }),
-    );
-
-  if (!posted) {
-    fetch("/", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body,
-      keepalive: true,
-    }).catch(() => {});
-  }
-  recordNetlifyFormSubmit(POWER_CHECK_ANALYTICS_FORM);
-}
-
 export function trackPowerCheckEvent(payload: PowerCheckAnalyticsPayload): void {
   if (typeof window === "undefined") return;
-
-  if (payload.kind === "started") {
-    return;
-  }
 
   if (payload.kind === "answer") {
     bufferAnswerEvent(payload);
     return;
   }
 
-  if (payload.kind === "retake") {
+  if (payload.kind === "completed" || payload.kind === "retake") {
     clearAnswerBuffer();
   }
-
-  if (!NETLIFY_POST_KINDS.has(payload.kind)) {
-    return;
-  }
-
-  let toPost = payload;
-  if (payload.kind === "completed") {
-    const trail = readAnswerBuffer();
-    toPost = {
-      ...payload,
-      answerTrail: trail.length > 0 ? JSON.stringify(trail) : undefined,
-    };
-    clearAnswerBuffer();
-  }
-
-  postPowerCheckAnalytics(toPost);
 }

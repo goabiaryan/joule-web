@@ -14,7 +14,6 @@ import {
   recordNetlifyFormSubmit,
   validateHumanSubmit,
 } from "../lib/formBotGuard.js";
-import { POWER_CHECK_ANALYTICS_FORM } from "../lib/powerCheckAnalytics.ts";
 import { playDiagnosticSelectSound } from "../lib/diagnosticSelectSound.js";
 import {
   resetPowerCheckSessionId,
@@ -68,10 +67,6 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
       search: `?${scopingSearchFromAnswers(result.answers)}`,
     };
   }, [result, scopingPath]);
-
-  useEffect(() => {
-    markFormReady(POWER_CHECK_ANALYTICS_FORM);
-  }, []);
 
   useEffect(() => {
     if (!isComplete || !result) return;

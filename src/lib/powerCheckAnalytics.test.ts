@@ -23,6 +23,7 @@ describe("powerCheckAnalytics", () => {
     vi.stubGlobal("sessionStorage", mockStorage());
     vi.stubGlobal("localStorage", mockStorage());
     vi.stubGlobal("navigator", { sendBeacon: vi.fn(() => true) });
+    vi.stubGlobal("fetch", vi.fn());
   });
 
   afterEach(() => {
@@ -42,18 +43,8 @@ describe("powerCheckAnalytics", () => {
     expect(b).not.toBe(a);
   });
 
-  it("does not POST started or answer events (avoids Netlify email per tap)", () => {
+  it("never POSTs to Netlify (no sendBeacon or fetch)", () => {
     trackPowerCheckEvent({ kind: "started" });
-    trackPowerCheckEvent({
-      kind: "answer",
-      questionId: "q1",
-      answerValue: 0,
-      stepIndex: 0,
-    });
-    expect(navigator.sendBeacon).not.toHaveBeenCalled();
-  });
-
-  it("sendBeacon posts completed with buffered answer_trail", async () => {
     trackPowerCheckEvent({
       kind: "answer",
       questionId: "q1",
@@ -67,17 +58,12 @@ describe("powerCheckAnalytics", () => {
       q6: 2,
       gapCount: 3,
     });
-    expect(navigator.sendBeacon).toHaveBeenCalledOnce();
-    const [, blob] = vi.mocked(navigator.sendBeacon).mock.calls[0];
-    expect(blob).toBeInstanceOf(Blob);
-    const text = await (blob as Blob).text();
-    expect(text).toContain("kind=completed");
-    expect(text).toContain("answer_trail=");
+    trackPowerCheckEvent({ kind: "scoping_click", tier: "partial" });
+    expect(navigator.sendBeacon).not.toHaveBeenCalled();
+    expect(fetch).not.toHaveBeenCalled();
   });
 
-  it("uses power-check-analytics form name in encoded body", () => {
-    const params = new URLSearchParams();
-    params.set("form-name", POWER_CHECK_ANALYTICS_FORM);
+  it("uses power-check-analytics form name constant for Netlify registration", () => {
     expect(POWER_CHECK_ANALYTICS_FORM).toBe("power-check-analytics");
   });
 });

@@ -1,27 +1,25 @@
 # Power headroom check analytics
 
-Events post to the Netlify form **`power-check-analytics`** (no cookies, no email in payloads).
+Diagnostic funnel events are **client-only** (buffered answers in `sessionStorage`). They are **not** sent to Netlify.
 
-**Netlify email:** Turn off form notifications for **`power-check-analytics`**. Each POST is a separate submission; the app only POSTs on milestones (not on every tap). Keep notifications on **`headroom-check-email`** and **`power-slo-assessment`** only.
+## Inbox notifications (completions only)
 
-## Event kinds (`kind`)
+Turn on Netlify form email for:
 
-| kind | When |
-|------|------|
-| `started` | First answer (client-only; not sent to Netlify) |
-| `answer` | Each question (buffered in `sessionStorage`; included in `answer_trail` on `completed`) |
-| `completed` | All six questions done (`tier`, `score`, `q6`, `gap_count`, `answer_trail` JSON) |
-| `scoping_click` | "Request an assessment" from the result (`role` if they typed one in the email form first) |
-| `scoping_landed` | `/scoping` opened with valid `check=v1&a=…` |
-| `email_sent` | Readout email form succeeded (`role` on analytics when provided; role also stored on the email form submission) |
-| `retake` | "Retake the diagnostic" |
+| Form | When it fires |
+|------|----------------|
+| **`headroom-check-email`** | User submits the readout form (email + role + summary) after finishing all six questions |
+| **`power-slo-assessment`** | User submits **Request an assessment** on `/scoping` |
 
-Correlate a visit with **`session_id`**. Export form submissions from Netlify and pivot in a spreadsheet or script.
+Turn **off** notifications for **`power-check-analytics`**. That form exists only so Netlify registers fields at build time; the app does not POST to it. Partial or abandoned diagnostics never create submissions.
 
-## Drop-off
+## Event kinds (`trackPowerCheckEvent`)
 
-Parse `answer_trail` on `completed` rows for per-question paths. Sessions with no `completed` row abandoned mid-diagnostic (not posted unless you add another pipeline).
+| kind | Behavior |
+|------|----------|
+| `started` | No-op |
+| `answer` | Appends to in-session buffer (not exported) |
+| `completed` | Clears buffer; no network |
+| `scoping_click`, `scoping_landed`, `email_sent`, `retake` | No-op (lead forms carry conversion signal) |
 
-## Tier and power context
-
-Filter `completed`, `scoping_click`, `scoping_landed`, and `email_sent` by `tier` and `q6`.
+`getPowerCheckSessionId` / `resetPowerCheckSessionId` remain for correlating future instrumentation (e.g. GA events) if added later.
