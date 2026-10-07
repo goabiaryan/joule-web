@@ -10,3 +10,9 @@
 [build.environment]
   # Netlify nvm does not provide Node 24; Vite 7 runs on 22 LTS.
   NODE_VERSION = "22"
+
+# React Router (/, /scoping, /privacy). Netlify Forms still handle POST / before this rule.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
