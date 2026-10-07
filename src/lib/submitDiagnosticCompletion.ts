@@ -41,7 +41,7 @@ export function encodeDiagnosticCompletionBody(
   return params.toString();
 }
 
-/** POST full quiz outcome to Netlify (with or without contact fields). */
+/** POST full quiz outcome to Netlify (lead submit only — do not call without contact). */
 export function submitDiagnosticCompletion(
   result: PowerCheckResult,
   contact: DiagnosticCompletionContact,

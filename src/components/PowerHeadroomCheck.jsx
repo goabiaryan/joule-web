@@ -7,10 +7,8 @@ import {
   formatPowerCheckEmailSummary,
   scopingSearchFromAnswers,
 } from "../lib/powerCheck.ts";
-import {
-  encodeDiagnosticCompletionBody,
-  submitDiagnosticCompletion,
-} from "../lib/submitDiagnosticCompletion.ts";
+import { trackDiagnosticCompleted } from "../lib/diagnosticAnalytics.ts";
+import { encodeDiagnosticCompletionBody } from "../lib/submitDiagnosticCompletion.ts";
 import {
   FORM_RATE_LIMIT_MESSAGE,
   TRAP_FIELD,
@@ -39,7 +37,7 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
   const roleInputRef = useRef(null);
   const startAnchorRef = useRef(null);
   const pendingScrollToStartRef = useRef(false);
-  const resultSubmittedRef = useRef(false);
+  const completionTrackedRef = useRef(false);
   const [role, setRole] = useState("");
 
   useEffect(() => {
@@ -64,9 +62,9 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
   }, [result, scopingPath]);
 
   useEffect(() => {
-    if (!isComplete || !result || resultSubmittedRef.current) return;
-    resultSubmittedRef.current = true;
-    submitDiagnosticCompletion(result, { contactProvided: false });
+    if (!isComplete || !result || completionTrackedRef.current) return;
+    completionTrackedRef.current = true;
+    trackDiagnosticCompleted(result);
   }, [isComplete, result]);
 
   useEffect(() => {
@@ -112,7 +110,7 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
   }, []);
 
   const restart = useCallback(() => {
-    resultSubmittedRef.current = false;
+    completionTrackedRef.current = false;
     setAnswers({});
     setStep(0);
     setEmail("");
