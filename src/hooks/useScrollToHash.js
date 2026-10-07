@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { scrollToSectionById } from "../lib/scrollToSection.js";
 
-/** Scroll to in-page hash after SPA mount (e.g. /#headroom-check). */
+/** Honor shared /#section links once, then drop the hash so scrolling elsewhere stays clean. */
 export function useScrollToHash() {
-  const { pathname, hash } = useLocation();
+  const { pathname, hash, search } = useLocation();
 
   useEffect(() => {
     if (!hash || pathname !== "/") return;
@@ -12,18 +13,16 @@ export function useScrollToHash() {
     let attempts = 0;
 
     const scrollToTarget = () => {
-      const el = document.getElementById(id);
-      if (!el) {
-        if (attempts < 20) {
-          attempts += 1;
-          window.requestAnimationFrame(scrollToTarget);
-        }
+      if (scrollToSectionById(id)) {
+        window.history.replaceState(null, "", `${pathname}${search}`);
         return;
       }
-      el.classList.add("scroll-reveal-visible");
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      if (attempts < 20) {
+        attempts += 1;
+        window.requestAnimationFrame(scrollToTarget);
+      }
     };
 
     scrollToTarget();
-  }, [hash, pathname]);
+  }, [hash, pathname, search]);
 }

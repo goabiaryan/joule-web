@@ -8,7 +8,8 @@ import { useBrandMeta } from "../hooks/useBrandMeta.js";
 import { useHeroPointerGlow } from "../hooks/useHeroPointerGlow.js";
 import { useNavSectionSpy } from "../hooks/useNavSectionSpy.js";
 import { useScrollToHash } from "../hooks/useScrollToHash.js";
-import { HEADROOM_CHECK_ANCHOR, powerHeadroomCheck } from "../content/powerHeadroomCheck.js";
+import { HEADROOM_CHECK_SECTION_ID, powerHeadroomCheck } from "../content/powerHeadroomCheck.js";
+import { scrollToSectionById } from "../lib/scrollToSection.js";
 import { brandMeta, phase1Product, SCOPING_CTA } from "../content/phase1Product.js";
 
 const signalIcons = {
@@ -219,9 +220,13 @@ export default function ProductHome() {
             ) : null}
           </h1>
           <p className="hero-lede">{hero.lede}</p>
-          <a className="diagnostic-cta hero-primary-cta" href={HEADROOM_CHECK_ANCHOR}>
+          <button
+            className="diagnostic-cta hero-primary-cta"
+            type="button"
+            onClick={() => scrollToSectionById(HEADROOM_CHECK_SECTION_ID)}
+          >
             {powerHeadroomCheck.heroCtaLabel}
-          </a>
+          </button>
         </div>
         <div className="hero-signals" aria-label="Product capabilities">
           {hero.signals.map(({ icon, label }) => {

@@ -2,7 +2,9 @@
 
 import { POWER_CHECK_QUESTIONS } from "../lib/powerCheck.ts";
 
-export const HEADROOM_CHECK_ANCHOR = "#headroom-check";
+export const HEADROOM_CHECK_SECTION_ID = "headroom-check";
+/** For shared links only; prefer scrollToSectionById — do not use href on in-page CTAs. */
+export const HEADROOM_CHECK_ANCHOR = `#${HEADROOM_CHECK_SECTION_ID}`;
 export const PRIVACY_PATH = "/privacy";
 
 export const powerHeadroomCheck = {
