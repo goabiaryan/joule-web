@@ -1,11 +1,12 @@
-/** @deprecated Use formBotGuard with form key headroom-check-email. Kept for stable imports. */
+/** @deprecated Use formBotGuard with form key diagnostic-completion. Kept for stable imports. */
 import {
   FORM_RATE_LIMIT_MESSAGE,
   canSubmitNetlifyForm,
   recordNetlifyFormSubmit,
 } from "./formBotGuard.js";
+import { NETLIFY_FORM_DIAGNOSTIC } from "../content/netlifyForms.js";
 
-const FORM = "headroom-check-email";
+const FORM = NETLIFY_FORM_DIAGNOSTIC;
 
 export function canSubmitHeadroomEmail() {
   return canSubmitNetlifyForm(FORM);

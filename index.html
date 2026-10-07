@@ -95,8 +95,15 @@
     </script>
   </head>
   <body>
-    <!-- Netlify build-time form detection (SPA); fields match IntakePage.jsx -->
-    <form name="power-slo-assessment" netlify netlify-honeypot="bot-field" hidden>
+    <!-- Netlify build-time form detection (SPA). Only these two forms exist. -->
+    <form name="diagnostic-completion" netlify netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="role" />
+      <textarea name="headroomCheckSummary"></textarea>
+      <input name="bot-field" />
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
+    </form>
+    <form name="assessment" netlify netlify-honeypot="bot-field" hidden>
       <input type="text" name="name" />
       <input type="email" name="email" />
       <input type="text" name="company" />
@@ -108,29 +115,6 @@
       <select name="timeline"></select>
       <textarea name="anythingElse"></textarea>
       <input type="hidden" name="power_check" />
-      <input name="bot-field" />
-      <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
-    </form>
-    <form name="power-check-analytics" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="kind" />
-      <input type="text" name="session_id" />
-      <input type="text" name="question_id" />
-      <input type="text" name="answer_value" />
-      <input type="text" name="step_index" />
-      <input type="text" name="tier" />
-      <input type="text" name="score" />
-      <input type="text" name="q6" />
-      <input type="text" name="gap_count" />
-      <textarea name="answer_trail"></textarea>
-      <input type="text" name="role" />
-      <input type="text" name="fleet_size" />
-      <input name="bot-field" />
-      <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
-    </form>
-    <form name="headroom-check-email" netlify netlify-honeypot="bot-field" hidden>
-      <input type="email" name="email" />
-      <input type="text" name="role" />
-      <textarea name="headroomCheckSummary"></textarea>
       <input name="bot-field" />
       <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
     </form>

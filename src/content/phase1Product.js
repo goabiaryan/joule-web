@@ -1,3 +1,5 @@
+import { NETLIFY_FORM_ASSESSMENT } from "./netlifyForms.js";
+
 /** Canonical copy for joule.lat: Phase 1 product and assessment motion. */
 
 export const BRAND_NAME = "Joule";
@@ -51,7 +53,7 @@ export const ASSESSMENT_FORM_OPTIONS = {
 export const INTAKE_FORMS = {
   assessment: {
     path: "/scoping",
-    formName: "power-slo-assessment",
+    formName: NETLIFY_FORM_ASSESSMENT,
     eyebrow: "Power & SLO assessment",
     title: "Request an assessment",
     intro: "Tell us about your fleet. We use this to scope the engagement before a short call.",

@@ -15,10 +15,7 @@ import {
   validateHumanSubmit,
 } from "../lib/formBotGuard.js";
 import { playDiagnosticSelectSound } from "../lib/diagnosticSelectSound.js";
-import {
-  resetPowerCheckSessionId,
-  trackPowerCheckEvent,
-} from "../lib/powerCheckAnalytics.ts";
+import { NETLIFY_FORM_DIAGNOSTIC } from "../content/netlifyForms.js";
 import { HEADROOM_CHECK_ANCHOR, powerHeadroomCheck, PRIVACY_PATH } from "../content/powerHeadroomCheck.js";
 import { INTAKE_FORMS } from "../content/phase1Product.js";
 import HeadroomVisibilityGaps from "./HeadroomVisibilityGaps.jsx";
@@ -47,8 +44,6 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
   const roleInputRef = useRef(null);
   const startAnchorRef = useRef(null);
   const pendingScrollToStartRef = useRef(false);
-  const startedTrackedRef = useRef(false);
-  const completedTrackedRef = useRef(false);
   const [role, setRole] = useState("");
 
   const isComplete = step >= questions.length;
@@ -70,7 +65,7 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
 
   useEffect(() => {
     if (!isComplete || !result) return;
-    markFormReady("headroom-check-email");
+    markFormReady(NETLIFY_FORM_DIAGNOSTIC);
   }, [isComplete, result]);
 
   useEffect(() => {
@@ -80,18 +75,6 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
     });
     return () => window.cancelAnimationFrame(id);
   }, [emailStatus, isComplete, result]);
-
-  useEffect(() => {
-    if (!isComplete || !result || completedTrackedRef.current) return;
-    completedTrackedRef.current = true;
-    trackPowerCheckEvent({
-      kind: "completed",
-      tier: result.tier,
-      score: result.score,
-      q6: result.answers[5],
-      gapCount: result.gaps.length,
-    });
-  }, [isComplete, result]);
 
   useEffect(() => {
     if (!pendingScrollToStartRef.current || step !== 0 || isComplete) return;
@@ -113,17 +96,6 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
       const nextAnswers = { ...answers, [question.id]: optionIndex };
       setAnswers(nextAnswers);
 
-      if (!startedTrackedRef.current) {
-        startedTrackedRef.current = true;
-        trackPowerCheckEvent({ kind: "started" });
-      }
-      trackPowerCheckEvent({
-        kind: "answer",
-        questionId: question.id,
-        answerValue: optionIndex,
-        stepIndex: step,
-      });
-
       if (!isLastQuestion) {
         setStep((s) => s + 1);
         return;
@@ -138,22 +110,7 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
     setStep((s) => Math.max(0, s - 1));
   }, []);
 
-  const resultContext = useMemo(() => {
-    if (!result) return null;
-    return {
-      tier: result.tier,
-      score: result.score,
-      q6: result.answers[5],
-      gapCount: result.gaps.length,
-      role: role.trim() || undefined,
-    };
-  }, [role, result]);
-
   const restart = useCallback(() => {
-    trackPowerCheckEvent({ kind: "retake" });
-    resetPowerCheckSessionId();
-    startedTrackedRef.current = false;
-    completedTrackedRef.current = false;
     setAnswers({});
     setStep(0);
     setEmail("");
@@ -165,17 +122,12 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
     pendingScrollToStartRef.current = true;
   }, []);
 
-  const onScopingClick = useCallback(() => {
-    if (!resultContext) return;
-    trackPowerCheckEvent({ kind: "scoping_click", ...resultContext });
-  }, [resultContext]);
-
   const onEmailSubmit = async (event) => {
     event.preventDefault();
     setEmailError("");
     if (!result) return;
     const guard = validateHumanSubmit(
-      "headroom-check-email",
+      NETLIFY_FORM_DIAGNOSTIC,
       { "bot-field": botField, [TRAP_FIELD]: companyWebsite },
       { minMs: 2500 },
     );
@@ -200,7 +152,7 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encodeEmailFormBody("headroom-check-email", {
+        body: encodeEmailFormBody(NETLIFY_FORM_DIAGNOSTIC, {
           email: email.trim(),
           role: role.trim(),
           headroomCheckSummary: formatPowerCheckEmailSummary(result),
@@ -209,10 +161,7 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
         }),
       });
       if (!response.ok) throw new Error("submit failed");
-      recordNetlifyFormSubmit("headroom-check-email");
-      if (resultContext) {
-        trackPowerCheckEvent({ kind: "email_sent", ...resultContext });
-      }
+      recordNetlifyFormSubmit(NETLIFY_FORM_DIAGNOSTIC);
       setEmailStatus("success");
     } catch {
       setEmailStatus("idle");
@@ -301,11 +250,7 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
             <p className="headroom-check-urgency-note">{result.urgencyLine}</p>
           </div>
 
-          <Link
-            className="diagnostic-cta headroom-check-cta-primary"
-            onClick={onScopingClick}
-            to={scopingTo}
-          >
+          <Link className="diagnostic-cta headroom-check-cta-primary" to={scopingTo}>
             {powerHeadroomCheck.ctaAssessment}
             <ArrowUpRight aria-hidden size={16} strokeWidth={2} />
           </Link>
@@ -339,13 +284,13 @@ export default function PowerHeadroomCheck({ scopingPath = INTAKE_FORMS.assessme
                 </div>
                 <form
                   className="headroom-check-email-form"
-                  name="headroom-check-email"
+                  name={NETLIFY_FORM_DIAGNOSTIC}
                   method="POST"
                   data-netlify="true"
                   data-netlify-honeypot="bot-field"
                   onSubmit={onEmailSubmit}
                 >
-                  <input type="hidden" name="form-name" value="headroom-check-email" />
+                  <input type="hidden" name="form-name" value={NETLIFY_FORM_DIAGNOSTIC} />
                   <input
                     type="hidden"
                     name="headroomCheckSummary"

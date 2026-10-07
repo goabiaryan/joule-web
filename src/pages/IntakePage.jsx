@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useBrandMeta } from "../hooks/useBrandMeta.js";
 import {
@@ -8,7 +8,6 @@ import {
   formatScopingCheckSummary,
 } from "../lib/powerCheck.ts";
 import FormRequiredMark from "../components/FormRequiredMark.jsx";
-import { trackPowerCheckEvent } from "../lib/powerCheckAnalytics.ts";
 import {
   FORM_RATE_LIMIT_MESSAGE,
   TRAP_FIELD,
@@ -330,19 +329,6 @@ export default function IntakePage() {
   const clearCheck = () => {
     setSearchParams({}, { replace: true });
   };
-
-  const scopingLandingTracked = useRef(false);
-  useEffect(() => {
-    if (!checkResult || scopingLandingTracked.current) return;
-    scopingLandingTracked.current = true;
-    trackPowerCheckEvent({
-      kind: "scoping_landed",
-      tier: checkResult.tier,
-      score: checkResult.score,
-      q6: checkResult.answers[5],
-      gapCount: checkResult.gaps.length,
-    });
-  }, [checkResult]);
 
   useBrandMeta({
     pageTitle: `${config.title} · ${brandMeta.documentTitle}`,

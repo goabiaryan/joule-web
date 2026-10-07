@@ -14,9 +14,8 @@ const DEFAULT_MIN_MS = 3500;
 const RATE_WINDOW_MS = 60 * 60 * 1000;
 
 const LIMITS = {
-  "power-slo-assessment": 4,
-  "headroom-check-email": 5,
-  "power-check-analytics": 80,
+  assessment: 4,
+  "diagnostic-completion": 5,
 };
 
 function readRateTimestamps(formKey) {
