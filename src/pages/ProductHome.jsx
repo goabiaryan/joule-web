@@ -7,6 +7,7 @@ import ScrollReveal from "../components/ScrollReveal.jsx";
 import { useBrandMeta } from "../hooks/useBrandMeta.js";
 import { useHeroPointerGlow } from "../hooks/useHeroPointerGlow.js";
 import { useNavSectionSpy } from "../hooks/useNavSectionSpy.js";
+import { useScrollToHash } from "../hooks/useScrollToHash.js";
 import { HEADROOM_CHECK_ANCHOR, powerHeadroomCheck } from "../content/powerHeadroomCheck.js";
 import { brandMeta, phase1Product, SCOPING_CTA } from "../content/phase1Product.js";
 
@@ -141,6 +142,7 @@ export default function ProductHome() {
 
   useBrandMeta();
   useHeroPointerGlow(heroRef);
+  useScrollToHash();
 
   const activateTimelineStep = useCallback((index) => {
     setActiveTimelineStep(index);
