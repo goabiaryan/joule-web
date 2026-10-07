@@ -299,9 +299,11 @@ h1 em {
   font-size: clamp(2.35rem, 5.5vw, 4.25rem);
   font-weight: 600;
   letter-spacing: -0.055em;
-  line-height: 1.02;
+  line-height: 1.1;
   margin: clamp(1.1rem, 2.5vw, 1.75rem) 0 clamp(0.85rem, 2vw, 1.35rem);
   max-width: min(52rem, 100%);
+  overflow: visible;
+  padding-bottom: 0.04em;
 }
 .hero-brand-lockup {
   font-family: "DM Mono", monospace;
@@ -333,6 +335,7 @@ h1 em {
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.6;
+  margin: 0 0 0.25rem;
   max-width: 38rem;
 }
 .hero-keywords {
@@ -1900,7 +1903,10 @@ button.diagnostic-cta {
   .hero h1 {
     font-size: clamp(1.85rem, 8.5vw, 2.65rem);
     letter-spacing: -0.045em;
-    line-height: 1.06;
+    line-height: 1.12;
+  }
+  .hero-underlay {
+    display: none;
   }
   .hero-lede {
     font-size: 0.875rem;
@@ -2190,6 +2196,17 @@ button.diagnostic-cta {
 }
 .diagnostic-cta:active {
   transform: translateY(0);
+}
+.hero-main button.diagnostic-cta.hero-primary-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Manrope, system-ui, sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: clamp(1.5rem, 3vw, 2rem);
+  text-transform: none;
 }
 .brand-mark {
   transition: transform 0.25s ease;
