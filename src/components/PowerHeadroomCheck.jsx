@@ -4,6 +4,7 @@ import { ArrowUpRight, Mail } from "lucide-react";
 import {
   answersRecordToTuple,
   evaluatePowerCheck,
+  formatPowerCheckEmailSummary,
   scopingSearchFromAnswers,
 } from "../lib/powerCheck.ts";
 import {
