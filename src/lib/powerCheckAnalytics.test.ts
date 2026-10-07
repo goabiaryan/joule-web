@@ -42,7 +42,24 @@ describe("powerCheckAnalytics", () => {
     expect(b).not.toBe(a);
   });
 
-  it("sendBeacon posts analytics form with kind and no email field", () => {
+  it("does not POST started or answer events (avoids Netlify email per tap)", () => {
+    trackPowerCheckEvent({ kind: "started" });
+    trackPowerCheckEvent({
+      kind: "answer",
+      questionId: "q1",
+      answerValue: 0,
+      stepIndex: 0,
+    });
+    expect(navigator.sendBeacon).not.toHaveBeenCalled();
+  });
+
+  it("sendBeacon posts completed with buffered answer_trail", async () => {
+    trackPowerCheckEvent({
+      kind: "answer",
+      questionId: "q1",
+      answerValue: 0,
+      stepIndex: 0,
+    });
     trackPowerCheckEvent({
       kind: "completed",
       tier: "partial",
@@ -53,6 +70,9 @@ describe("powerCheckAnalytics", () => {
     expect(navigator.sendBeacon).toHaveBeenCalledOnce();
     const [, blob] = vi.mocked(navigator.sendBeacon).mock.calls[0];
     expect(blob).toBeInstanceOf(Blob);
+    const text = await (blob as Blob).text();
+    expect(text).toContain("kind=completed");
+    expect(text).toContain("answer_trail=");
   });
 
   it("uses power-check-analytics form name in encoded body", () => {

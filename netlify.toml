@@ -1,6 +1,8 @@
 # Forms: Netlify honeypot (bot-field), hidden company_website trap, client timing + rate limits
 # (src/lib/formBotGuard.js). In Netlify UI: Forms → spam filters / Akismet on; consider reCAPTCHA
 # if abuse persists. robots.txt blocks aggressive SEO crawlers; POST / is not crawlable.
+# Email notifications: enable only headroom-check-email + power-slo-assessment; leave
+# power-check-analytics off (milestone POSTs still land in Forms → Submissions for export).
 
 [build]
   command = "npm run build"
