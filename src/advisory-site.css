@@ -2087,12 +2087,6 @@ ul {
 .stack-timeline-step-interactive.is-active {
   opacity: 1;
 }
-.stack-timeline-step-interactive.is-active .stack-timeline-content {
-  background: rgba(227, 106, 61, 0.05);
-  border: 1px solid rgba(227, 106, 61, 0.22);
-  border-radius: 8px;
-  padding: 0.85rem 1rem 0.85rem 1.15rem;
-}
 .stack-timeline-step-interactive.is-complete .stack-timeline-node-dot {
   background: #e36a3d;
 }
