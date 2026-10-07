@@ -15,7 +15,7 @@ const RATE_WINDOW_MS = 60 * 60 * 1000;
 
 const LIMITS = {
   assessment: 4,
-  "diagnostic-completion": 5,
+  "diagnostic-completion": 10,
 };
 
 function readRateTimestamps(formKey) {
