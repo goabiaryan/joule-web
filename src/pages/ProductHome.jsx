@@ -1,9 +1,14 @@
-import { Activity, ArrowDown, ArrowUpRight, Radar, ShieldCheck, Zap } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
+import { Activity, ArrowUpRight, Radar, ShieldCheck, Zap } from "lucide-react";
 import BrandLockup from "../components/BrandLockup.jsx";
 import BrandTagline from "../components/BrandTagline.jsx";
-import EngagementCard from "../components/EngagementCard.jsx";
+import PowerHeadroomCheck from "../components/PowerHeadroomCheck.jsx";
+import ScrollReveal from "../components/ScrollReveal.jsx";
 import { useBrandMeta } from "../hooks/useBrandMeta.js";
-import { brandMeta, phase1Product, RETAINER_CTA, SCOPING_CTA } from "../content/phase1Product.js";
+import { useHeroPointerGlow } from "../hooks/useHeroPointerGlow.js";
+import { useNavSectionSpy } from "../hooks/useNavSectionSpy.js";
+import { HEADROOM_CHECK_ANCHOR, powerHeadroomCheck } from "../content/powerHeadroomCheck.js";
+import { brandMeta, phase1Product, SCOPING_CTA } from "../content/phase1Product.js";
 
 const signalIcons = {
   zap: Zap,
@@ -47,7 +52,7 @@ const audienceTopologyIcons = {
 
 function DeliverableCell({ index, title, badge, body, output }) {
   return (
-    <div className="space-y-3 p-6 sm:p-8">
+    <div className="deliverable-cell space-y-3 p-6 sm:p-8">
       <div className="flex items-center justify-between gap-3">
         <div className="flex min-w-0 items-center gap-2">
           <span className="font-mono text-xs font-semibold text-orange-500">
@@ -62,7 +67,7 @@ function DeliverableCell({ index, title, badge, body, output }) {
       <p className="font-sans text-xs leading-relaxed text-neutral-400">{body}</p>
       <div className="pt-2 font-mono text-[11px]">
         <span className="text-neutral-500">Output:</span>{" "}
-        <span className="text-[#61b8a9]">{output}</span>
+        <span className="deliverable-cell-output text-[#61b8a9]">{output}</span>
       </div>
     </div>
   );
@@ -71,12 +76,9 @@ function DeliverableCell({ index, title, badge, body, output }) {
 function DeliverableSpecGrid({ items }) {
   const rows = [items.slice(0, 2), items.slice(2, 4)];
   return (
-    <div className="mx-auto mt-12 max-w-5xl overflow-hidden rounded-lg border border-neutral-800/80 bg-neutral-950/40">
+    <div className="deliverables-spec">
       {rows.map((row, rowIndex) => (
-        <div
-          className={`grid grid-cols-1 divide-y divide-neutral-800/80 md:grid-cols-2 md:divide-x md:divide-y-0 ${rowIndex === 0 ? "border-b border-neutral-800/80" : ""}`}
-          key={rowIndex}
-        >
+        <div className="deliverables-spec-row" key={rowIndex}>
           {row.map((item, columnIndex) => {
             const index = rowIndex * 2 + columnIndex;
             return (
@@ -98,19 +100,23 @@ function DeliverableSpecGrid({ items }) {
 
 function ProductFigure({ alt, src }) {
   return (
-    <figure className="product-figure">
-      <img alt={alt} decoding="async" loading="lazy" src={src} />
-    </figure>
+    <ScrollReveal className="product-figure product-figure-interactive" delay={120}>
+      <figure>
+        <img alt={alt} decoding="async" loading="lazy" src={src} />
+      </figure>
+    </ScrollReveal>
   );
 }
 
-function SectionHeadingTitle({ text, as: Tag = "h2", size = "lg", tone = "light" }) {
-  const sizeClass = size === "sm" ? " section-heading-title-sm" : "";
-  const toneClass = tone === "amber" ? " section-heading-title-amber" : " section-heading-title-light";
+function SectionIntro({ eyebrow, title, bridge, titleTone = "light" }) {
+  const titleClass =
+    titleTone === "amber" ? "section-intro-title section-intro-title-amber" : "section-intro-title";
   return (
-    <Tag className={`section-heading-title${sizeClass}${toneClass}`}>
-      {text}
-    </Tag>
+    <ScrollReveal as="header" className="section-intro">
+      <p className="section-intro-eyebrow">{eyebrow}</p>
+      <h2 className={titleClass}>{title}</h2>
+      {bridge ? <p className="section-intro-bridge">{bridge}</p> : null}
+    </ScrollReveal>
   );
 }
 
@@ -122,22 +128,33 @@ export default function ProductHome() {
     audience,
     stack,
     engagements,
-    designPartnerProgram,
-    retainer,
     deliverables,
     deliverablesSection,
     principal,
-    contactIntro,
     footer,
   } = phase1Product;
 
-  const mail = SCOPING_CTA.contactEmail;
   const conversationHref = SCOPING_CTA.href;
+  const heroRef = useRef(null);
+  const [activeTimelineStep, setActiveTimelineStep] = useState(0);
+  const activeNavSection = useNavSectionSpy();
 
   useBrandMeta();
+  useHeroPointerGlow(heroRef);
+
+  const activateTimelineStep = useCallback((index) => {
+    setActiveTimelineStep(index);
+  }, []);
+
+  const onTimelineKeyDown = useCallback((event, index) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      setActiveTimelineStep(index);
+    }
+  }, []);
 
   return (
-    <main className="site-shell">
+    <main className="site-shell site-shell-interactive">
       <div className="ambient-glow" aria-hidden />
       <nav className="topbar" aria-label="Primary navigation">
         <a className="brand" href="#top" aria-label={`${brandMeta.name} home`}>
@@ -149,71 +166,80 @@ export default function ProductHome() {
               nameClassName="brand-name brand-name-logotype"
               domainClassName="brand-domain brand-domain-nav"
               parenClassName="brand-domain-paren brand-domain-paren-nav"
+              showDomain={false}
             />
-            <BrandTagline className="brand-tagline-nav" />
+            <BrandTagline className="brand-tagline-nav" variant="capacity" />
           </span>
         </a>
         <div className="nav-links">
-          <a href="#problem">Problem</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#deliverables">Deliverables</a>
-          <a href="#engagements">Engagements</a>
+          <a className={activeNavSection === "problem" ? "nav-link-active" : undefined} href="#problem">
+            Problem
+          </a>
+          <a
+            className={activeNavSection === "how-it-works" ? "nav-link-active" : undefined}
+            href="#how-it-works"
+          >
+            How it works
+          </a>
+          <a
+            className={activeNavSection === "deliverables" ? "nav-link-active" : undefined}
+            href="#deliverables"
+          >
+            Deliverables
+          </a>
+          <a
+            className={activeNavSection === "engagements" ? "nav-link-active" : undefined}
+            href="#engagements"
+          >
+            Get started
+          </a>
           <a className="nav-cta" href={conversationHref}>
             {SCOPING_CTA.label} <ArrowUpRight size={14} />
           </a>
         </div>
       </nav>
 
-      <section className="hero" id="top">
+      <section className="hero hero-interactive" id="top" ref={heroRef}>
         <div className="hero-underlay" aria-hidden="true">
           <img alt="" className="hero-underlay-img" decoding="async" src={hero.visual.src} />
+        </div>
+        <div className="hero-main">
+          <div className="eyebrow eyebrow-tagline">
+            <span className="pulse-dot" /> {hero.eyebrow}
+          </div>
+          <h1>
+            {hero.titleLine1}
+            {hero.titleEmphasis ? (
+              <>
+                {" "}
+                <em>{hero.titleEmphasis}</em>
+              </>
+            ) : null}
+          </h1>
+          <p className="hero-lede">{hero.lede}</p>
+          <a className="diagnostic-cta hero-primary-cta" href={HEADROOM_CHECK_ANCHOR}>
+            {powerHeadroomCheck.heroCtaLabel}
+          </a>
         </div>
         <div className="hero-signals" aria-label="Product capabilities">
           {hero.signals.map(({ icon, label }) => {
             const Icon = signalIcons[icon];
             return (
-              <div className="hero-signal" key={label}>
-                <Icon size={16} strokeWidth={1.75} aria-hidden />
+              <div className="hero-signal hero-signal-interactive" key={label}>
+                <span className="hero-signal-icon-wrap" aria-hidden>
+                  <Icon size={16} strokeWidth={1.75} />
+                </span>
                 <span className="hero-signal-label">{label}</span>
               </div>
             );
           })}
         </div>
-        <div className="eyebrow eyebrow-tagline">
-          <span className="pulse-dot" /> {hero.eyebrow}
-        </div>
-        <h1>
-          {hero.titleLine1} <em>{hero.titleEmphasis}</em>
-        </h1>
-        <p className="hero-brand-lockup" aria-label={`${brandMeta.name} (${brandMeta.domain})`}>
-          <BrandLockup
-            layout="inline"
-            nameVariant="logotype"
-            nameClassName="brand-name-logotype hero-brand-logotype"
-            domainClassName="hero-brand-domain"
-            parenClassName="hero-brand-paren"
-          />
-        </p>
-        <p className="hero-lede">{hero.lede}</p>
-        <p className="hero-keywords" aria-label="What we measure">
-          {hero.keywords.map((term, index) => (
-            <span key={term} className="hero-keywords-item">
-              {index > 0 ? <span className="hero-keywords-sep" aria-hidden="true"> · </span> : null}
-              {term}
-            </span>
-          ))}
-        </p>
-        <a className="hero-link" href="#engagements">
-          Design partner program <ArrowDown size={18} strokeWidth={2} />
-        </a>
       </section>
 
       <section className="section problem-section" id="problem">
-        <div className="section-heading section-heading-prominent">
-          <SectionHeadingTitle text={problem.title} tone="light" />
-        </div>
-        <div className="grid grid-cols-1 gap-10 pt-6 md:grid-cols-2">
-          <div className="space-y-6 border-l border-neutral-800 pl-6">
+        <SectionIntro eyebrow={problem.eyebrow} bridge={problem.bridge} title={problem.title} />
+        <ScrollReveal className="measurement-gap-grid measurement-gap-grid-interactive">
+          <div className="measurement-gap-col measurement-gap-col--blind">
             <div>
               <div className="font-mono text-[11px] uppercase tracking-widest text-neutral-500">
                 [ {problem.facility.stateLabel} ]
@@ -221,77 +247,74 @@ export default function ProductHome() {
               <h3 className="mt-1 text-base font-medium text-neutral-300">{problem.facility.columnTitle}</h3>
               <p className="mt-0.5 font-mono text-xs text-neutral-500">{problem.facility.columnHint}</p>
             </div>
-            <div className="space-y-4 pt-2">
+            <div className="measurement-gap-insights">
               {problem.facility.insights.map((item) => (
-                <div key={item.title}>
+                <div className="measurement-gap-insight" key={item.title}>
                   <h4 className="text-sm font-medium text-neutral-300">{item.title}</h4>
                   <p className="mt-1 font-mono text-xs leading-relaxed text-neutral-500">{item.body}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="space-y-6 border-l-2 border-orange-500/80 bg-gradient-to-r from-orange-500/[0.03] to-transparent pl-6">
+          <div className="measurement-gap-col measurement-gap-col--joule">
             <div>
-              <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-orange-500">
-                <span className="measurement-gap-pulse-dot h-1.5 w-1.5 rounded-full bg-orange-500" aria-hidden />
-                [ {problem.joule.stateLabel} ]
+              <div className="measurement-gap-state measurement-gap-state--joule">
+                <span className="measurement-gap-pulse-dot" aria-hidden />
+                <span>[ {problem.joule.stateLabel} ]</span>
               </div>
               <h3 className="mt-1 text-base font-semibold text-white">{problem.joule.columnTitle}</h3>
               <p className="mt-0.5 font-mono text-xs text-neutral-400">{problem.joule.columnHint}</p>
             </div>
-            <div className="space-y-4 pt-2">
+            <div className="measurement-gap-insights">
               {problem.joule.insights.map((item) => (
-                <div key={item.title}>
+                <div className="measurement-gap-insight measurement-gap-insight--joule" key={item.title}>
                   <h4 className="text-sm font-medium text-neutral-100">{item.title}</h4>
                   <p className="mt-1 font-mono text-xs leading-relaxed text-neutral-400">{item.body}</p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
+        </ScrollReveal>
         <ProductFigure alt={illustrations.utilizationGoodput.alt} src={illustrations.utilizationGoodput.src} />
       </section>
 
       <section className="section audience-matrix-section" id="audience">
-        <div className="section-heading section-heading-prominent">
-          <SectionHeadingTitle text={audience.title} tone="amber" />
-        </div>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {audience.profiles.map((profile) => (
-              <div
-                className="relative space-y-4 rounded-lg border border-neutral-800 bg-neutral-950/50 p-6 transition-colors hover:border-neutral-700"
-                key={profile.id}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="rounded border border-orange-500/20 bg-orange-500/10 p-2 text-orange-400">
-                    {audienceTopologyIcons[profile.icon]}
-                  </div>
-                  <span className="font-mono text-[10px] uppercase tracking-widest text-neutral-500">
-                    [ {profile.scopeTag} ]
-                  </span>
+        <SectionIntro
+          eyebrow={audience.eyebrow}
+          bridge={audience.bridge}
+          title={audience.title}
+          titleTone="amber"
+        />
+        <div className="audience-matrix">
+            {audience.profiles.map((profile, index) => (
+              <ScrollReveal as="div" className="audience-card audience-card-interactive" delay={index * 90} key={profile.id}>
+                <div className="audience-card-header">
+                  <div className="audience-card-icon">{audienceTopologyIcons[profile.icon]}</div>
+                  <span className="audience-card-tag">[ {profile.scopeTag} ]</span>
                 </div>
-                <div className="space-y-3">
-                  <h4 className="text-sm font-semibold text-neutral-100">{profile.title}</h4>
-                  <p className="text-xs leading-relaxed text-neutral-400">{profile.body}</p>
+                <div className="audience-card-body">
+                  <h4>{profile.title}</h4>
+                  <p>{profile.body}</p>
                 </div>
-                <div className="border-t border-neutral-900 pt-3 font-mono text-[11px] text-orange-400/80">
-                  {profile.footer}
-                </div>
-              </div>
+                <div className="audience-card-footer">{profile.footer}</div>
+              </ScrollReveal>
             ))}
         </div>
       </section>
 
       <section className="section practice-section" id="how-it-works">
-        <div className="section-heading section-heading-prominent">
-          <SectionHeadingTitle text={stack.title} tone="light" />
-        </div>
+        <SectionIntro eyebrow={stack.eyebrow} bridge={stack.bridge} title={stack.title} />
         <div className="mx-auto max-w-6xl">
-          <ol className="stack-timeline m-0 list-none p-0 pt-6">
+          <ol className="stack-timeline stack-timeline-interactive m-0 list-none p-0">
             {stack.pillars.map((pillar, index) => (
               <li
-                className={`stack-timeline-step ${index % 2 === 0 ? "stack-timeline-step--left" : "stack-timeline-step--right"}`}
+                aria-pressed={activeTimelineStep === index}
+                className={`stack-timeline-step stack-timeline-step-interactive ${index % 2 === 0 ? "stack-timeline-step--left" : "stack-timeline-step--right"}${activeTimelineStep === index ? " is-active" : ""}${index < activeTimelineStep ? " is-complete" : ""}`}
                 key={pillar.id}
+                onClick={() => activateTimelineStep(index)}
+                onKeyDown={(event) => onTimelineKeyDown(event, index)}
+                role="button"
+                tabIndex={0}
               >
                 <div className="stack-timeline-node" aria-hidden>
                   <span className="stack-timeline-node-dot" />
@@ -300,8 +323,7 @@ export default function ProductHome() {
                   <div className="font-mono text-[10px] uppercase tracking-widest text-orange-500">
                     {String(index + 1).padStart(2, "0")} / {pillar.id}
                   </div>
-                  <h3 className="text-base font-medium text-white">{pillar.title}</h3>
-                  <ul className="list-inside list-disc space-y-2 font-sans text-xs leading-relaxed text-neutral-400">
+                  <ul className="list-disc">
                     {pillar.items.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
@@ -311,42 +333,61 @@ export default function ProductHome() {
             ))}
           </ol>
         </div>
-        <ProductFigure alt={illustrations.vpcBoundary.alt} src={illustrations.vpcBoundary.src} />
+        <ProductFigure
+          alt={illustrations.infrastructureBoundary.alt}
+          src={illustrations.infrastructureBoundary.src}
+        />
       </section>
 
       <section className="section outputs-section" id="deliverables">
-        <div className="section-heading section-heading-prominent">
-          <SectionHeadingTitle text={deliverablesSection.title} tone="amber" />
-        </div>
-        <DeliverableSpecGrid items={deliverables} />
+        <SectionIntro
+          eyebrow={deliverablesSection.eyebrow}
+          bridge={deliverablesSection.bridge}
+          title={deliverablesSection.title}
+          titleTone="amber"
+        />
+        <ScrollReveal className="deliverables-spec-wrap" delay={80}>
+          <DeliverableSpecGrid items={deliverables} />
+        </ScrollReveal>
       </section>
 
       <section className="section engagement-section" id="engagements">
-        <div className="section-heading section-heading-prominent">
-          <SectionHeadingTitle text={engagements.title} tone="light" />
-        </div>
-        <div className="engagement-cards mx-auto pt-6">
-          <div className="engagement-stack">
-            <EngagementCard offer={designPartnerProgram} pricing={designPartnerProgram} featured>
-              <div className="pilot-cta-row">
-                <a className="diagnostic-cta diagnostic-cta-block" href={conversationHref}>
-                  {SCOPING_CTA.buttonLabel}
-                </a>
-              </div>
-            </EngagementCard>
-            <p className="engagement-program-contact">
-              {contactIntro}{" "}
-              <a href={`mailto:${mail}`}>{mail}</a>
-            </p>
-          </div>
-          <EngagementCard offer={retainer} pricing={retainer}>
-            <div className="pilot-cta-row">
-              <a className="diagnostic-cta diagnostic-cta-block diagnostic-cta-secondary" href={RETAINER_CTA.href}>
-                {RETAINER_CTA.buttonLabel}
-              </a>
+        <SectionIntro
+          eyebrow={engagements.eyebrow}
+          bridge={engagements.bridge}
+          title={engagements.title}
+        />
+        <PowerHeadroomCheck scopingPath={conversationHref} />
+        <ScrollReveal className="engagement-panel engagement-panel-interactive" delay={100}>
+          <div className="engagement-panel-main">
+            <div className="engagement-panel-copy">
+              <p className="engagement-panel-eyebrow">{engagements.start.eyebrow}</p>
+              <h3 className="engagement-panel-heading">{engagements.start.heading}</h3>
+              <p className="engagement-panel-lede">{engagements.start.body}</p>
+              <ul className="engagement-outcomes" aria-label="Assessment outcomes">
+                {engagements.start.outcomes.map((label) => (
+                  <li key={label}>{label}</li>
+                ))}
+              </ul>
+              <p className="engagement-panel-assurance">{engagements.start.detail}</p>
             </div>
-          </EngagementCard>
-        </div>
+            <aside className="engagement-panel-followon" aria-labelledby="engagement-followon-heading">
+              <p className="engagement-panel-eyebrow engagement-panel-eyebrow-muted">
+                {engagements.then.eyebrow}
+              </p>
+              <h3 className="engagement-panel-followon-heading" id="engagement-followon-heading">
+                {engagements.then.heading}
+              </h3>
+              <p className="engagement-panel-followon-body">{engagements.then.body}</p>
+            </aside>
+          </div>
+          <div className="engagement-panel-action">
+            <p className="engagement-panel-fee">{engagements.fixedFeeLine}</p>
+            <a className="diagnostic-cta engagement-panel-cta" href={conversationHref}>
+              {SCOPING_CTA.buttonLabel}
+            </a>
+          </div>
+        </ScrollReveal>
       </section>
 
       <footer className="site-footer site-footer-institutional site-footer-after-engagements">
@@ -357,7 +398,10 @@ export default function ProductHome() {
           </a>
         </p>
         <p className="site-footer-line site-footer-domain">{footer.line}</p>
-        <BrandTagline as="p" className="site-footer-line site-footer-tagline" />
+        <BrandTagline as="p" className="site-footer-line site-footer-tagline" variant="capacity" />
+        <p className="site-footer-line site-footer-contact">
+          <a href={`mailto:${footer.contactEmail}`}>{footer.contactEmail}</a>
+        </p>
         <small className="site-footer-legal">{footer.legal}</small>
       </footer>
     </main>

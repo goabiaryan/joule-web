@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1990 1010" width="1990" height="1010" role="img" aria-label="Joule runs inside your infrastructure: your inference sends metrics and device power to the Joule runtime in your tenant, which sends readouts to your team and can apply power caps only with your approval. Nothing flows to Joule.">
+  <defs>
+    <style>
+      .bg { fill: #15171c; }
+      .panel { fill: #1c1f26; stroke: #2f3540; stroke-width: 2; }
+      .inner { fill: #22262e; }
+      .accent-panel { fill: #1c1f26; stroke: #e0703a; stroke-width: 2.5; }
+      .h1 { font: 700 46px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #f3f5f8; }
+      .sub { font: 400 26px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #a3aab6; }
+      .title { font: 700 26px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #f3f5f8; }
+      .title-acc { font: 700 26px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #e0703a; }
+      .body { font: 400 19px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #c4cad4; }
+      .muted { font: 400 18px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #8e96a3; }
+      .strong { font: 700 20px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #f3f5f8; }
+      .mono { font: 400 16px "JetBrains Mono", "SFMono-Regular", Menlo, monospace; fill: #a3aab6; letter-spacing: 1px; }
+      .mono-lg { font: 400 19px "JetBrains Mono", "SFMono-Regular", Menlo, monospace; fill: #c4cad4; }
+      .label { font: 700 18px "JetBrains Mono", "SFMono-Regular", Menlo, monospace; fill: #a3aab6; letter-spacing: 3px; }
+      .chip { fill: #1c1f26; stroke: #3a414d; stroke-width: 1.5; }
+      .chip-acc { fill: #1c1f26; stroke: #e0703a; stroke-width: 1.5; }
+      .chip-t { font: 400 16px "JetBrains Mono", "SFMono-Regular", Menlo, monospace; fill: #dfe3ea; }
+      .chip-ta { font: 400 16px "JetBrains Mono", "SFMono-Regular", Menlo, monospace; fill: #e0703a; }
+      .green { font: 700 24px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #6cc497; }
+      .red-t { font: 700 19px "Inter", "Helvetica Neue", Arial, sans-serif; fill: #e86a6a; }
+      .flow { stroke: #e0703a; stroke-width: 3; fill: none; }
+      .flow-g { stroke: #8e96a3; stroke-width: 3; fill: none; }
+      .back { stroke: #e0703a; stroke-width: 2.5; fill: none; stroke-dasharray: 8 7; }
+      .boundary { fill: none; stroke: #7d8592; stroke-width: 2; stroke-dasharray: 12 9; }
+      .vendor { fill: #1a1d23; stroke: #3a414d; stroke-width: 2; stroke-dasharray: 8 7; }
+      .egress { stroke: #6b7280; stroke-width: 2; stroke-dasharray: 6 6; }
+      .spark { stroke: #e0703a; stroke-width: 2.5; fill: none; stroke-linejoin: round; }
+      .base { stroke: #2f3540; stroke-width: 1.5; }
+    </style>
+    <marker id="arrowO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e0703a"/></marker>
+    <marker id="arrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8e96a3"/></marker>
+  </defs>
+
+  <rect class="bg" x="0" y="0" width="1990" height="1010"/>
+
+  <text class="h1" x="66" y="100">Runs on your own infrastructure.</text>
+  <text class="sub" x="66" y="154">Joule runtime in your tenant. No default egress to Joule systems.</text>
+
+  <rect class="boundary" x="66" y="196" width="1450" height="530" rx="24"/>
+  <rect class="bg" x="96" y="182" width="490" height="30"/>
+  <text class="label" x="110" y="204">YOUR INFRASTRUCTURE · YOUR TENANT</text>
+
+  <rect class="panel" x="114" y="250" width="372" height="400" rx="14"/>
+  <text class="title" x="142" y="298">Your inference</text>
+  <text class="body" x="142" y="334">Production LLM serving</text>
+  <rect class="inner" x="142" y="356" width="316" height="76" rx="8"/>
+  <text class="strong" x="162" y="390">GPU cluster</text>
+  <text class="muted" x="162" y="418">runtimes you operate</text>
+  <rect class="inner" x="142" y="446" width="316" height="62" rx="8"/>
+  <text class="mono" x="162" y="484" style="font-size:14px;letter-spacing:0.5px">LIVE TRAFFIC · BATCHED REQUESTS</text>
+  <rect x="142" y="526" width="74" height="12" rx="2" fill="#5a9e74"/>
+  <rect x="223" y="526" width="54" height="12" rx="2" fill="#5a9e74"/>
+  <rect x="284" y="526" width="40" height="12" rx="2" fill="#4a505b"/>
+  <rect x="331" y="526" width="62" height="12" rx="2" fill="#5a9e74"/>
+  <rect x="400" y="526" width="58" height="12" rx="2" fill="#8a3f45"/>
+  <text class="muted" x="142" y="574">utilization ≠ goodput</text>
+  <text class="muted" x="142" y="612">KV cache · queue · power</text>
+
+  <line class="flow" x1="492" y1="400" x2="608" y2="400" marker-end="url(#arrowO)"/>
+  <text class="mono-lg" x="550" y="372" text-anchor="middle">metrics</text>
+  <text class="muted" x="550" y="430" text-anchor="middle">+ power</text>
+
+  <line class="back" x1="614" y1="618" x2="494" y2="618" marker-end="url(#arrowO)"/>
+
+  <rect class="accent-panel" x="616" y="250" width="498" height="400" rx="14"/>
+  <rect x="940" y="266" width="156" height="32" rx="6" fill="none" stroke="#e0703a" stroke-width="1.5"/>
+  <text class="chip-ta" x="1018" y="288" text-anchor="middle">IN TENANT</text>
+  <text class="title-acc" x="644" y="298">Joule runtime</text>
+  <text class="body" x="644" y="334">Measurement · serving state · SLO</text>
+
+  <rect class="chip-acc" x="644" y="356" width="112" height="36" rx="6"/>
+  <text class="chip-ta" x="700" y="380" text-anchor="middle">$/M tok</text>
+  <rect class="chip" x="766" y="356" width="112" height="36" rx="6"/>
+  <text class="chip-t" x="822" y="380" text-anchor="middle">tokens/W</text>
+  <rect class="chip" x="888" y="356" width="112" height="36" rx="6"/>
+  <text class="chip-t" x="944" y="380" text-anchor="middle">TTFT·TPOT</text>
+  <rect class="chip-acc" x="644" y="402" width="180" height="36" rx="6"/>
+  <text class="chip-ta" x="734" y="426" text-anchor="middle">safe headroom</text>
+  <rect class="chip" x="834" y="402" width="166" height="36" rx="6"/>
+  <text class="chip-t" x="917" y="426" text-anchor="middle">KV · queue</text>
+
+  <polyline class="spark" points="644,526 686,526 702,496 720,536 742,512 784,512 814,490 852,524 896,524 932,514 978,524 1018,510 1060,524 1086,514"/>
+  <line class="base" x1="644" y1="546" x2="1086" y2="546"/>
+  <text class="muted" x="644" y="578">power · latency · throughput</text>
+  <text class="mono" x="644" y="610" style="fill:#e0703a">power caps · only with your approval</text>
+  <text class="mono" x="644" y="634" style="fill:#e0703a">automatic rollback</text>
+
+  <line class="flow-g" x1="1120" y1="450" x2="1238" y2="450" marker-end="url(#arrowG)"/>
+  <text class="mono-lg" x="1180" y="422" text-anchor="middle">readouts</text>
+
+  <rect class="panel" x="1246" y="250" width="252" height="400" rx="14"/>
+  <text class="title" x="1274" y="298">Your team</text>
+  <text class="body" x="1274" y="334">Readouts &amp; reviews</text>
+  <rect class="inner" x="1274" y="356" width="198" height="150" rx="8"/>
+  <text class="mono" x="1290" y="388">DASHBOARD</text>
+  <text class="green" x="1290" y="426">SLO goodput</text>
+  <text class="muted" x="1290" y="458">$/M · P99</text>
+  <text class="muted" x="1290" y="486">safe headroom</text>
+  <text class="muted" x="1274" y="612">in your accounts</text>
+
+  <rect class="inner" x="114" y="664" width="1384" height="46" rx="6" stroke="#2f3540" stroke-width="1.5"/>
+  <text class="mono" x="142" y="694">ISOLATED HOSTS</text>
+  <text class="mono" x="420" y="694">·   CUSTOMER KMS / NETWORK POLICY</text>
+  <text class="mono" x="880" y="694">·   AUDIT LOGS IN YOUR TENANT</text>
+
+  <line class="egress" x1="1498" y1="416" x2="1562" y2="416"/>
+  <line class="egress" x1="1608" y1="416" x2="1680" y2="416"/>
+  <circle cx="1585" cy="416" r="21" fill="#15171c" stroke="#e86a6a" stroke-width="2.5"/>
+  <path d="M1576 407 L1594 425 M1594 407 L1576 425" stroke="#e86a6a" stroke-width="3" stroke-linecap="round"/>
+  <text class="red-t" x="1585" y="468" text-anchor="middle">no egress</text>
+  <rect class="vendor" x="1682" y="312" width="240" height="206" rx="14"/>
+  <text class="title" x="1802" y="382" text-anchor="middle" style="fill:#c4cad4">Joule</text>
+  <text class="muted" x="1802" y="416" text-anchor="middle">(vendor)</text>
+  <text class="muted" x="1802" y="456" text-anchor="middle">no default</text>
+  <text class="muted" x="1802" y="482" text-anchor="middle">data path</text>
+
+  <text class="strong" x="66" y="790">Joule reads</text>
+  <text class="mono-lg" x="350" y="790">serving metrics and device power, never prompts or outputs</text>
+  <text class="strong" x="66" y="832">Never leaves your tenant</text>
+  <text class="mono-lg" x="350" y="832">prompts · outputs · weights · request data</text>
+  <text class="strong" x="66" y="874">You own</text>
+  <text class="mono-lg" x="350" y="874">telemetry outputs, dashboards and readouts</text>
+</svg>

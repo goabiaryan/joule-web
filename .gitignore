@@ -4,4 +4,6 @@ dist
 .env
 .env.*
 !.env.example
+# Partner decks, PDFs, one-pagers, detail diagrams — local only (not deployed)
 deck/
+client-deck/

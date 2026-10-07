@@ -29,4 +29,26 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+# Aggressive SEO/scrape bots (no value for joule.lat; reduces noise on forms and origin)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
 Sitemap: https://joule.lat/sitemap.xml

@@ -8,6 +8,7 @@ export default function BrandLockup({
   nameClassName = "brand-name",
   domainClassName = "brand-domain",
   parenClassName = "brand-domain-paren",
+  showDomain = true,
 }) {
   const displayName = nameVariant === "logotype" ? brandMeta.name.toUpperCase() : brandMeta.name;
 
@@ -15,11 +16,13 @@ export default function BrandLockup({
     return (
       <span className="brand-lockup brand-lockup-inline">
         <span className={nameClassName}>{displayName}</span>
-        <span className={parenClassName}>
-          {" ("}
-          <span className={domainClassName}>{brandMeta.domain}</span>
-          {")"}
-        </span>
+        {showDomain ? (
+          <span className={parenClassName}>
+            {" ("}
+            <span className={domainClassName}>{brandMeta.domain}</span>
+            {")"}
+          </span>
+        ) : null}
       </span>
     );
   }

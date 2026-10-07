@@ -1,5 +1,9 @@
 /** Fee line with optional leading copy, superscript *, and footnote. */
 export default function EngagementPrice({ pricing, className }) {
+  if (!pricing || pricing.showPricing === false || !pricing.feeAmount) {
+    return null;
+  }
+
   const showStar = pricing.showFootnoteStar !== false;
 
   return (

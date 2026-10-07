@@ -1,32 +1,7 @@
+# Forms: Netlify honeypot (bot-field), hidden company_website trap, client timing + rate limits
+# (src/lib/formBotGuard.js). In Netlify UI: Forms → spam filters / Akismet on; consider reCAPTCHA
+# if abuse persists. robots.txt blocks aggressive SEO crawlers; POST / is not crawlable.
+
 [build]
   command = "npm run build"
   publish = "dist"
-
-[[redirects]]
-  from = "/robots.txt"
-  to = "/robots.txt"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/sitemap.xml"
-  to = "/sitemap.xml"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/llms.txt"
-  to = "/llms.txt"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/og/*"
-  to = "/og/:splat"
-  status = 200
-  force = false
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200

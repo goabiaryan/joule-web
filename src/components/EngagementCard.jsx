@@ -6,6 +6,8 @@ export default function EngagementCard({
   featured = false,
   children,
 }) {
+  const showPricing = pricing?.showPricing !== false && Boolean(pricing?.feeAmount);
+
   return (
     <article
       className={
@@ -13,7 +15,11 @@ export default function EngagementCard({
       }
     >
       <div className="card-label">{offer.label}</div>
-      <EngagementPrice pricing={pricing} />
+      {showPricing ? <EngagementPrice pricing={pricing} /> : null}
+      {offer.summary ? <p className="engagement-summary">{offer.summary}</p> : null}
+      {offer.commitmentLine ? (
+        <p className="engagement-commitment">{offer.commitmentLine}</p>
+      ) : null}
       <ul className="engagement-features">
         {offer.items.map((item) => (
           <li key={item}>{item}</li>

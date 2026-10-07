@@ -25,7 +25,7 @@
     <title>Joule · Efficiency down to the metal.</title>
     <meta
       name="description"
-      content="Efficiency down to the metal. Joule (joule.lat) is a phase-aware inference power economics engine tying GPU energy to token throughput and SLO goodput in your VPC. Phase 1 design partner program: in-VPC evaluation and readouts—no automatic changes to production controls."
+      content="Efficiency down to the metal. Joule maps every watt in your inference fleet to tokens, latency and SLO risk."
     />
     <link rel="canonical" href="https://joule.lat/" />
     <link rel="sitemap" href="/sitemap.xml" />
@@ -35,7 +35,7 @@
     <meta property="og:title" content="Joule · Efficiency down to the metal." />
     <meta
       property="og:description"
-      content="Efficiency down to the metal. Joule (joule.lat) is a phase-aware inference power economics engine tying GPU energy to token throughput and SLO goodput in your VPC. Phase 1 design partner program: in-VPC evaluation and readouts—no automatic changes to production controls."
+      content="Efficiency down to the metal. Joule maps every watt in your inference fleet to tokens, latency and SLO risk."
     />
     <meta property="og:url" content="https://joule.lat/" />
     <meta property="og:type" content="website" />
@@ -46,18 +46,18 @@
     <meta property="og:image:height" content="630" />
     <meta
       property="og:image:alt"
-      content="Joule (joule.lat): Efficiency down to the metal. In-VPC inference power economics, SLO goodput, design partner program."
+      content="Joule: Efficiency down to the metal. Phase-aware inference power economics and SLO goodput."
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Joule · Efficiency down to the metal." />
     <meta
       name="twitter:description"
-      content="Efficiency down to the metal. Joule (joule.lat) is a phase-aware inference power economics engine tying GPU energy to token throughput and SLO goodput in your VPC. Phase 1 design partner program: in-VPC evaluation and readouts—no automatic changes to production controls."
+      content="Efficiency down to the metal. Joule maps every watt in your inference fleet to tokens, latency and SLO risk."
     />
     <meta name="twitter:image" content="https://joule.lat/og/joule-share.png" />
     <meta
       name="twitter:image:alt"
-      content="Joule (joule.lat): Efficiency down to the metal. In-VPC inference power economics, SLO goodput, design partner program."
+      content="Joule: Efficiency down to the metal. Phase-aware inference power economics and SLO goodput."
     />
     <script type="application/ld+json">
       {
@@ -70,14 +70,13 @@
             "url": "https://joule.lat/",
             "email": "hello@joule.lat",
             "slogan": "Efficiency down to the metal.",
-            "description": "Efficiency down to the metal. Phase-aware inference power economics engine tying GPU energy to token throughput and SLO goodput in your VPC. Phase 1 design partner program with in-perimeter telemetry; no default export to Joule and no automatic production control changes.",
+            "description": "Efficiency down to the metal. Phase-aware inference power economics: map every watt in your inference fleet to tokens, latency and SLO risk. Power & SLO assessments with telemetry on your infrastructure; no default export to Joule and no automatic production control changes.",
             "founder": {
               "@type": "Person",
               "name": "Abi Aryan",
               "url": "https://abiaryan.com/",
               "sameAs": [
-                "https://www.linkedin.com/in/goabiaryan/",
-                "https://github.com/goabiaryan"
+                "https://www.linkedin.com/in/goabiaryan/"
               ]
             }
           },
@@ -87,7 +86,7 @@
             "name": "Joule",
             "alternateName": "joule.lat",
             "url": "https://joule.lat/",
-            "description": "Joule (joule.lat): Efficiency down to the metal. Inference power economics and in-VPC runtime telemetry for LLM serving teams.",
+            "description": "Efficiency down to the metal. Joule maps every watt in your inference fleet to tokens, latency and SLO risk.",
             "publisher": { "@id": "https://joule.lat/#organization" },
             "inLanguage": "en-US"
           }
@@ -97,31 +96,48 @@
   </head>
   <body>
     <!-- Netlify build-time form detection (SPA); fields match IntakePage.jsx -->
-    <form name="design-partner-program" netlify netlify-honeypot="bot-field" hidden>
+    <form name="power-slo-assessment" netlify netlify-honeypot="bot-field" hidden>
       <input type="text" name="name" />
       <input type="email" name="email" />
       <input type="text" name="company" />
-      <input type="text" name="role" />
-      <textarea name="context"></textarea>
+      <select name="fleetSize"></select>
+      <input type="number" name="powerMw" />
+      <input type="text" name="gpuTypes" />
+      <input type="text" name="servingEngines" />
+      <select name="mainConcern"></select>
+      <select name="timeline"></select>
+      <textarea name="anythingElse"></textarea>
+      <input type="hidden" name="power_check" />
       <input name="bot-field" />
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
     </form>
-    <form name="retainer-inquiry" netlify netlify-honeypot="bot-field" hidden>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
-      <input type="text" name="company" />
+    <form name="power-check-analytics" netlify netlify-honeypot="bot-field" hidden>
+      <input type="text" name="kind" />
+      <input type="text" name="session_id" />
+      <input type="text" name="question_id" />
+      <input type="text" name="answer_value" />
+      <input type="text" name="step_index" />
+      <input type="text" name="tier" />
+      <input type="text" name="score" />
+      <input type="text" name="q6" />
+      <input type="text" name="gap_count" />
       <input type="text" name="role" />
-      <input type="text" name="baseline" />
-      <textarea name="context"></textarea>
+      <input type="text" name="fleet_size" />
       <input name="bot-field" />
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
+    </form>
+    <form name="headroom-check-email" netlify netlify-honeypot="bot-field" hidden>
+      <input type="email" name="email" />
+      <input type="text" name="role" />
+      <textarea name="headroomCheckSummary"></textarea>
+      <input name="bot-field" />
+      <input type="text" name="company_website" tabindex="-1" autocomplete="off" />
     </form>
     <noscript>
       <article style="max-width: 40rem; margin: 2rem auto; padding: 0 1.25rem; font-family: system-ui, sans-serif; line-height: 1.6; color: #c8cdd3; background: #0b0e12;">
-        <h1 style="font-size: 1.25rem; color: #f2f0e9;">About Joule (joule.lat)</h1>
+        <h1 style="font-size: 1.25rem; color: #f2f0e9;">Efficiency down to the metal.</h1>
         <p>
-          Efficiency down to the metal. Joule (joule.lat) is an inference power economics engine: in-perimeter runtime telemetry tying GPU energy to token throughput and SLO goodput in your VPC.
-        </p>
-        <p>
-          Phase 1 design partner program with evaluation and readouts; telemetry stays in your tenant by default; no automatic changes to production controls.
+          Joule maps every watt in your inference fleet to tokens, latency and SLO risk.
         </p>
         <p><a href="https://joule.lat/llms.txt">LLM summary</a> · <a href="https://joule.lat/">Home</a></p>
       </article>
