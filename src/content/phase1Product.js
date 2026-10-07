@@ -9,7 +9,7 @@ export const BRAND_TAGLINE = "More capacity on the power you already have.";
 export const BRAND_CATEGORY = "Inference power economics";
 
 const META_LEDE =
-  "Joule maps every watt in your inference fleet to tokens, latency and SLO risk.";
+  "See which watts in your inference fleet are safe to reclaim, and which ones would break your SLOs.";
 
 /** Crawlers, meta tags, and llms.txt should match this narrative. */
 export const brandMeta = {
@@ -75,7 +75,7 @@ export const phase1Product = {
     eyebrow: BRAND_CATEGORY,
     titleLine1: "Efficiency down to the",
     titleEmphasis: "metal.",
-    lede: `${META_LEDE} You see where power can be reclaimed for more capacity, where it can't, and when you can cut load on demand.`,
+    lede: META_LEDE,
     signals: [
       { icon: "zap", label: "$/M tokens beside SLOs" },
       { icon: "radar", label: "Prefill vs decode attribution" },

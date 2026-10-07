@@ -329,7 +329,7 @@ h1 em {
 }
 .hero-lede {
   color: #d4d8dc;
-  font-size: clamp(1.0625rem, 1.35vw + 0.35rem, 1.3125rem);
+  font-size: clamp(0.875rem, 1.05vw + 0.28rem, 1.0625rem);
   font-weight: 400;
   letter-spacing: -0.015em;
   line-height: 1.6;
@@ -1894,7 +1894,7 @@ ul {
     line-height: 1.06;
   }
   .hero-lede {
-    font-size: 1rem;
+    font-size: 0.875rem;
     line-height: 1.62;
   }
   .hero-keywords {

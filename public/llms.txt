@@ -2,13 +2,13 @@
 
 > Efficiency down to the metal.
 
-Joule (https://joule.lat/) is a phase-aware inference power economics engine. Joule maps every watt in your inference fleet to tokens, latency and SLO risk. Metrics include $/M tokens, tokens/W, TTFT, TPOT, and goodput per watt on your infrastructure.
+Joule (https://joule.lat/) is a phase-aware inference power economics engine. See which watts in your inference fleet are safe to reclaim, and which ones would break your SLOs. Metrics include $/M tokens, tokens/W, TTFT, TPOT, and goodput per watt on your infrastructure.
 
 Founded by Abi Aryan (https://abiaryan.com/).
 
 ## One-line summary
 
-Efficiency down to the metal. Joule maps every watt in your inference fleet to tokens, latency and SLO risk.
+Efficiency down to the metal. See which watts in your inference fleet are safe to reclaim, and which ones would break your SLOs.
 
 ## What Joule does
 
