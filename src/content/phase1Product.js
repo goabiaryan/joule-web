@@ -262,12 +262,6 @@ export const phase1Product = {
     },
   ],
 
-  principal: {
-    line: "Joule is built by Abi Aryan and team.",
-    linkLabel: "Full bio, books, and speaking",
-    linkHref: "https://abiaryan.com",
-  },
-
   footer: {
     line: BRAND_DOMAIN,
     contactEmail: brandMeta.contactEmail,

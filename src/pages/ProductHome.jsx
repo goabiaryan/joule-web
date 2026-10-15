@@ -132,7 +132,6 @@ export default function ProductHome() {
     engagements,
     deliverables,
     deliverablesSection,
-    principal,
     footer,
   } = phase1Product;
 
@@ -398,12 +397,6 @@ export default function ProductHome() {
       </section>
 
       <footer className="site-footer site-footer-institutional site-footer-after-engagements">
-        <p className="site-footer-principal">
-          {principal.line}{" "}
-          <a href={principal.linkHref} target="_blank" rel="noreferrer">
-            {principal.linkLabel} →
-          </a>
-        </p>
         <p className="site-footer-line site-footer-domain">{footer.line}</p>
         <BrandTagline as="p" className="site-footer-line site-footer-tagline" variant="capacity" />
         <p className="site-footer-line site-footer-contact">
